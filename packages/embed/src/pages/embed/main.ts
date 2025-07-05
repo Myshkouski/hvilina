@@ -107,7 +107,10 @@ type SetupTriggerButtonOptions = {
     const input = getReservationIdInput(window, options.reservationIdInputId)
 
     onMessageListener = function onMessageListener(event: MessageEvent<any>) {
-      if (!compareOrigins(new URL(event.origin), new URL(import.meta.env.VITE_IFRAME_BASE_URL))) return
+      if (false == compareOrigins(event.origin, import.meta.env.VITE_IFRAME_BASE_URL)) {
+        // Message from unknown origin, so ignore it.
+        return
+      }
 
       switch (event.data?.type) {
         case "click":
