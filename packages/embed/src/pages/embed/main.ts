@@ -1,5 +1,8 @@
 import { compareOrigins } from "~/utils/compareOrigins"
 import { getComponentSelector } from "~/utils/getComponentSelector"
+import { tryGetTypedElementById } from "~/utils/tryGetTypedElementById"
+import { onDOMContentLoaded } from "~/utils/onDOMContentLoaded"
+
 import "./style.sass"
 
 type SetupTriggerButtonOptions = {
@@ -10,11 +13,8 @@ type SetupTriggerButtonOptions = {
 }
 
 {
-  enum DialogState {
-    OPEN = "open"
-  }
-
-  function updateDialogState(dialog: HTMLIFrameElement, dialogState: string | null | undefined) { 
+  function updateDialogState(dialog: HTMLIFrameElement | undefined, dialogState: string | null | undefined) { 
+    if (!dialog) return
     if (!dialogState) return
     let state: any
     try {
@@ -35,15 +35,21 @@ type SetupTriggerButtonOptions = {
     }, import.meta.env.VITE_IFRAME_BASE_URL)
   }
 
-  function showDialog(dialog: HTMLIFrameElement) {
-    dialog.setAttribute("data-state", DialogState.OPEN)
+  enum DialogAttributes {
+    OPENED = "data-opened"
   }
 
-  function hideDialog(dialog: HTMLIFrameElement) {
-    dialog.removeAttribute("data-state")
+  function showDialog(dialog: HTMLIFrameElement | undefined) {
+    dialog?.toggleAttribute(DialogAttributes.OPENED, true)
   }
 
-  function updateButton(button: HTMLIFrameElement, options?: { reservationId: string }) {
+  function hideDialog(dialog: HTMLIFrameElement | undefined) {
+    dialog?.toggleAttribute(DialogAttributes.OPENED, false)
+  }
+
+  function updateButton(button: HTMLIFrameElement | undefined, options?: { reservationId: string }) {
+    if (!button) return
+
     const payload = {
       r: options?.reservationId
     }
@@ -61,50 +67,51 @@ type SetupTriggerButtonOptions = {
   let onMessageListener: (this: Window, ev: MessageEvent<any>) => any | undefined
   let stateScriptElementObserver: MutationObserver | undefined
 
-
   function setupDialog(window: Window, options: SetupTriggerButtonOptions) {
+    let buttonIframeElement: HTMLIFrameElement | undefined
+    let dialogIframeElement: HTMLIFrameElement | undefined
+    let dialogStateElement: HTMLScriptElement | undefined
+    let reservationIdInputElement: HTMLInputElement | undefined
+
+    onDOMContentLoaded(window.document, () => {
+      buttonIframeElement = tryGetTypedElementById(window.document, options.buttonElementId, HTMLIFrameElement)
+      dialogIframeElement = tryGetTypedElementById(window.document, options.dialogElementId, HTMLIFrameElement)
+      dialogStateElement = tryGetTypedElementById(window.document, options.dialogStateElementId, HTMLScriptElement)
+      reservationIdInputElement = tryGetTypedElementById(window.document, options.reservationIdInputId, HTMLInputElement)
+
+      if (stateScriptElementObserver) {
+        stateScriptElementObserver.disconnect()
+      }
+
+      if (dialogStateElement) {
+        stateScriptElementObserver = new MutationObserver(records => {
+          let target: Text | undefined
+          for (const record of records.reverse()) {
+            if (record.type !== "characterData") continue
+            console.debug("MutationObserver#observe()", "record:", record)
+            console.debug("MutationObserver#observe()", "record.target instanceof HTMLScriptElement:", record.target instanceof HTMLScriptElement)
+
+            if (false == record.target instanceof Text) continue
+            target = record.target
+            break
+          }
+          console.debug("MutationObserver#observe()", "target:", target)
+          if (!target) return
+          if (!dialogIframeElement) return
+          updateDialogState(dialogIframeElement, target.data)
+        })
+
+        stateScriptElementObserver.observe(dialogStateElement, {
+          // childList: true,
+          subtree: true,
+          characterData: true,
+        })
+      }
+    })
+
     if (onMessageListener) {
       window.removeEventListener("message", onMessageListener)
     }
-
-    if (stateScriptElementObserver) {
-      stateScriptElementObserver.disconnect()
-    }
-
-    const buttonIframeElement = window.document.getElementById(options.buttonElementId)
-    if (false == buttonIframeElement instanceof HTMLIFrameElement) return
-
-    const dialogIframeElement = window.document.getElementById(options.dialogElementId)
-    if (false == dialogIframeElement instanceof HTMLIFrameElement) return
-
-    const dialogStateElement = window.document.getElementById(options.dialogStateElementId)
-    // if (false == dialogStateElement instanceof HTMLScriptElement) return
-
-    if (dialogStateElement) {
-      stateScriptElementObserver = new MutationObserver(records => {
-        let target: Text | undefined
-        for (const record of records.reverse()) {
-          if (record.type !== "characterData") continue
-          console.debug("MutationObserver#observe()", "record:", record)
-          console.debug("MutationObserver#observe()", "record.target instanceof HTMLScriptElement:", record.target instanceof HTMLScriptElement)
-
-          if (false == record.target instanceof Text) continue
-          target = record.target
-          break
-        }
-        console.debug("MutationObserver#observe()", "target:", target)
-        if (!target) return
-        updateDialogState(dialogIframeElement, target.data)
-      })
-
-      stateScriptElementObserver.observe(dialogStateElement, {
-        // childList: true,
-        subtree: true,
-        characterData: true,
-      })
-    }
-
-    const input = getReservationIdInput(window, options.reservationIdInputId)
 
     onMessageListener = function onMessageListener(event: MessageEvent<any>) {
       if (false == compareOrigins(event.origin, import.meta.env.VITE_IFRAME_BASE_URL)) {
@@ -124,7 +131,7 @@ type SetupTriggerButtonOptions = {
           break
         case "reservationChange":
           updateButton(buttonIframeElement, event.data.payload)
-          updateInput(input, event.data.payload)
+          updateInput(reservationIdInputElement, event.data.payload)
           break
       }
     }
@@ -132,7 +139,7 @@ type SetupTriggerButtonOptions = {
     window.addEventListener("message", onMessageListener)
   }
 
-  function main() {
+  function main(window: Window) {
     setupDialog(window, {
       buttonElementId: getComponentSelector("embed-button"),
       dialogElementId: getComponentSelector("embed-dialog"),
@@ -141,13 +148,5 @@ type SetupTriggerButtonOptions = {
     })
   }
 
-  function getReservationIdInput(window: Window, id: string) {
-    const element = window.document.getElementById(id)
-    if (false == element instanceof HTMLInputElement) {
-      return
-    }
-    return element
-  }
-
-  main()
+  main(globalThis.window)
 }
