@@ -1,0 +1,42 @@
+{
+  "name": "@hvilina/lib",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.0"
+  },
+  "files": [
+    "./dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "import": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      },
+      "default": {
+        "import": "./dist/index.cjs",
+        "types": "./dist/index.d.cts"
+      }
+    },
+    "./*": {
+      "import": {
+        "import": "./dist/*/index.js",
+        "types": "./dist/*/index.js.map"
+      },
+      "default": {
+        "import": "./dist/*/index.cjs",
+        "types": "./dist/*/index.d.cts"
+      }
+    }
+  },
+  "dependencies": {
+    "@myshkouski/web-crypto": "^0.0.4",
+    "hex-encoding": "^2.0.3",
+    "universal-cookie": "^8.0.1",
+    "zod": "^4.0.5"
+  }
+}
