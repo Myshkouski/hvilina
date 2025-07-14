@@ -4,3 +4,4 @@ export type { PostMessageController } from "./types/PostMessageController"
 export type { PostMessageControllerOptions } from "./types/PostMessageControllerOptions"
 
 export { createPostMessageController } from "./utils/createPostMessageController"
+export { postMessageTo } from "./utils/postMessageTo"
