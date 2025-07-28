@@ -1,9 +1,9 @@
 import Cookie from "universal-cookie";
 import { getCookieName, type GetCookieNameOptions } from "./getCookieName";
 
-export async function setReservationCookie(options: SetReservationCookieOptions) {
+export function setReservationCookie(options: SetReservationCookieOptions) {
   const cookie = new Cookie();
-  const name = await getCookieName(options);
+  const name = getCookieName(options);
   cookie.set(name, options.reservationId, {
     secure: true,
     expires: options.expires,

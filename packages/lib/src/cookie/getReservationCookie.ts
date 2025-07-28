@@ -1,9 +1,9 @@
 import Cookie from "universal-cookie";
 import { getCookieName, type GetCookieNameOptions } from "./getCookieName";
 
-export async function getReservationCookie(options: GetReservationCookieOptions): Promise<GetReservationCookieReturn> {
+export function getReservationCookie(options: GetReservationCookieOptions): GetReservationCookieReturn {
   const cookie = new Cookie();
-  const name = await getCookieName(options);
+  const name = getCookieName(options);
   const value = cookie.get(name, { doNotParse: true }) as string | null | undefined;
   return {
     name,
