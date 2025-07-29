@@ -18,7 +18,7 @@ slot(
 
 import { TimeSlotDialog } from "~/components/timeslot-dialog"
 import { useTimeSlots } from '~/composables';
-import type { TimePickerItem } from '~/components/timeslot-dialog/TimePicker.vue';
+import type { LocalTimeSlot, TimePickerItem } from '~/components/timeslot-dialog/TimePicker.vue';
 import { computed, onMounted, ref, shallowRef, watch } from 'vue';
 import { formatDuration } from "~/utils/formatDuration";
 import {
@@ -41,6 +41,7 @@ export interface Props {
 
 export type Emits = {
   (event: "error", error: any): void
+  (event: "update:timeSlots", value: LocalTimeSlot[] | undefined): void
   (event: "update:reservationId", value: string | undefined): void
 }
 
@@ -80,6 +81,12 @@ const {
 
 onMounted(() => {
   refreshTimeSlots().catch(onError)
+})
+
+watch(timeSlots, timeSlots => {
+  emit("update:timeSlots", timeSlots)
+}, {
+  immediate: true
 })
 
 watch(timeSlotsError, timeSlotsError => {
