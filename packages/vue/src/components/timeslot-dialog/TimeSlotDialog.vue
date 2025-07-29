@@ -4,13 +4,15 @@ Dialog(
   v-model:open="dialogOpen"
 )
   TimeSlotDialogTrigger(
-    :period="undefined"
+    :time-slot="timeSlot"
     :disabled="disabled"
   )
+    //- p {{ timeSlot }}
   
   TimeSlotDialogContent(
     :time-slots="timeSlots"
-    v-model:time-slot="selectedTimeSlot"
+    :time-slot="selectedTimeSlot"
+    @update:time-slot="onTimeSlotUpdate"
     @click:confirm="onConfirmClick"
     @click:refresh="onRefreshClick"
   )
@@ -29,20 +31,24 @@ import { shallowRef, watch } from "vue"
 
 const {
   timeSlots,
+  timeSlot,
   disabled = false,
 } = defineProps<{
   timeSlots?: LocalTimeSlot[]
+  timeSlot?: TimePickerItem
   disabled?: boolean
-} & {}>()
+}>()
 
 const emit = defineEmits<{
   (event: "click:refresh"): void
-  (event: "click:confirm"): void
+  (event: "click:confirm", value: TimePickerItem): void
 }>()
 
 const dialogOpen = defineModel("open", {
   default: false
 })
+
+const selectedTimeSlot = shallowRef<TimePickerItem | undefined>(timeSlot)
 
 const selectedStartDate = shallowRef<Date>()
 watch(selectedStartDate, (date, oldDate) => {
@@ -51,14 +57,17 @@ watch(selectedStartDate, (date, oldDate) => {
   }
 })
 
-const selectedTimeSlot = defineModel<TimePickerItem>()
-
 function onConfirmClick() {
-  emit("click:confirm")
+  if (!selectedTimeSlot.value) return
+  emit("click:confirm", selectedTimeSlot.value)
 }
 
 function onRefreshClick() {
   emit("click:refresh")
+}
+
+function onTimeSlotUpdate(value: TimePickerItem | undefined) {
+  selectedTimeSlot.value = value
 }
 
 </script>

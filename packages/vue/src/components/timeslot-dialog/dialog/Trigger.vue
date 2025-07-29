@@ -3,21 +3,23 @@
 .flex
   DialogTrigger(as-child)
     TimeSlotTriggerButton(
-      :period="period"
+      :time-slot="timeSlot"
       :disabled="disabled"
     )
+      slot
 
 </template>
 
 <script setup lang="ts">
 
+import type { TimePickerItem } from "../TimePicker.vue";
 import TimeSlotTriggerButton from "./TriggerButton.vue"
 import {
   DialogTrigger
 } from "~/components/ui/dialog"
 
 defineProps<{
-  period?: { startAt: Date, duration: string }
+  timeSlot?: TimePickerItem
   disabled?: boolean
 }>()
 

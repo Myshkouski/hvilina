@@ -7,15 +7,16 @@ Button(
   :class=`
     cn(
       'justify-start text-left font-normal',
-      !period && 'text-muted-foreground',
+      !timeSlot && 'text-muted-foreground',
     )
   `
 )
-  .flex.items-center.gap-2
-    CalendarIcon.size-4
-    TimeSlotText(
-      :period="period"
-    )
+  slot
+    .flex.items-center.gap-2
+      CalendarIcon.size-4
+      TimeSlotText(
+        :time-slot="timeSlot"
+      )
 
 </template>
 
@@ -25,9 +26,10 @@ import { Button } from "~/components/ui/button"
 import { CalendarIcon } from "lucide-vue-next"
 import TimeSlotText from "./Text.vue"
 import { cn } from "~/utils/shadcn"
+import type { TimePickerItem } from "../TimePicker.vue";
 
 defineProps<{
-  period?: { startAt: Date, duration: string }
+  timeSlot?: TimePickerItem
   disabled?: boolean
 }>()
 

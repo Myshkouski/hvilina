@@ -7,7 +7,7 @@ slot(
     v-model:open="dialogOpen"
     :disabled="disabled"
     :time-slots="timeSlots"
-    v-model="timeSlot"
+    :time-slot="timeSlot"
     @click:refresh="refreshTimeSlots"
     @click:confirm="onConfirmClick"
   )
@@ -24,15 +24,24 @@ import { formatDuration } from "~/utils/formatDuration";
 import {
   createReservationRequest,
   changeReservationRequest,
+  getReservationRequest,
 } from "@hvilina/lib/api"
 import { useReservationMeta } from "~/composables/useReservationIdCookie";
 import { useBrowserLocation } from "@vueuse/core";
+import type { TimeSlotApi } from "~/types/TimeSlotApi";
+import { toLocalTimeSlot } from "~/utils/toLocalTimeSlot";
+import { toTimePickerItem } from "~/utils/toTimePickerItem";
 
 export interface Props {
   baseUrl: string | URL
   contract?: string
   scope?: string
   to?: Date
+}
+
+export type Emits = {
+  (event: "error", error: any): void
+  (event: "update:reservationId", value: string | undefined): void
 }
 
 const {
@@ -42,10 +51,7 @@ const {
   to
 } = defineProps<Props>()
 
-const emit = defineEmits<{
-  (event: "error", error: any): void
-  (event: "update:reservationId", value: string | undefined): void
-}>()
+const emit = defineEmits<Emits>()
 
 const dialogOpen = ref(false)
 
@@ -84,22 +90,39 @@ watch(timeSlotsError, timeSlotsError => {
   immediate: true
 })
 
-const timeSlot = shallowRef<TimePickerItem>()
-
-function onConfirmClick() {
-  if (!timeSlot.value) return
-  confirm(timeSlot.value).catch(onError)
-}
-
-async function confirm(timeSlot: TimePickerItem) {
-  await upsertReservationAndRefresh(timeSlot)
-}
-
 const browserLocation = useBrowserLocation()
 const origin = computed(() => {
   return browserLocation.value.origin
 })
 const reservationMeta = useReservationMeta({ scope, origin })
+
+const timeSlot = shallowRef<TimePickerItem>()
+
+onMounted(async () => {
+  const reservationId = reservationMeta.id.value
+  if (!reservationId) return
+
+  const request = getReservationRequest({
+    baseUrl,
+    id: reservationId
+  })
+
+  const response = await fetch(request)
+  const responseBody = await response.json() as { data: TimeSlotApi }
+
+  const reservedTimeSlot = toLocalTimeSlot(responseBody.data)
+  timeSlot.value = toTimePickerItem(reservedTimeSlot)
+})
+
+function onConfirmClick(timeSlot: TimePickerItem) {
+  confirm(timeSlot).catch(onError)
+}
+
+async function confirm(timeSlot: TimePickerItem) {
+  await upsertReservation(timeSlot)
+}
+
+
 
 watch(reservationMeta.id, reservationId => {
   emit("update:reservationId", reservationId)
@@ -107,7 +130,7 @@ watch(reservationMeta.id, reservationId => {
   immediate: true
 })
 
-async function upsertReservationAndRefresh(timeSlot: TimePickerItem) {
+async function upsertReservation(timeSlotValue: TimePickerItem) {
   const reservationId = reservationMeta.id.value
   let request: Request
   if (reservationId) {
@@ -115,18 +138,18 @@ async function upsertReservationAndRefresh(timeSlot: TimePickerItem) {
       baseUrl,
       id: reservationId,
       reservation: {
-        performer: timeSlot.performer,
-        start_at: timeSlot.startAt.toDate().toISOString(),
-        duration: formatDuration(timeSlot.duration)
+        performer: timeSlotValue.performer,
+        start_at: timeSlotValue.startAt.toDate().toISOString(),
+        duration: formatDuration(timeSlotValue.duration)
       }
     })
   } else {
     request = createReservationRequest({
       baseUrl,
       reservation: {
-        start_at: timeSlot.startAt.toDate().toISOString(),
-        duration: formatDuration(timeSlot.duration),
-        performer: timeSlot.performer,
+        start_at: timeSlotValue.startAt.toDate().toISOString(),
+        duration: formatDuration(timeSlotValue.duration),
+        performer: timeSlotValue.performer,
       }
     })
   }
@@ -138,6 +161,7 @@ async function upsertReservationAndRefresh(timeSlot: TimePickerItem) {
     expireAt: new Date(body.data.expire_at)
   })
 
+  timeSlot.value = timeSlotValue
   dialogOpen.value = false
 }
 

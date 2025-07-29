@@ -1,22 +1,10 @@
-import { parseAbsoluteToLocal, parseDuration } from "@internationalized/date";
 import { useNow, useFetch } from "@vueuse/core";
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
-import type { LocalTimeSlot } from "~/components/timeslot-dialog/TimePicker.vue";
+import { toLocalTimeSlot } from "~/utils/toLocalTimeSlot";
+import type { TimeSlotApi } from "~/types/TimeSlotApi";
 
 type TimeSlotsApiResponse = {
-  data: {
-    _dev?: {
-      row: number;
-      schedule_id: any;
-      available_from: string | null;
-      available_to: string | null;
-    } | undefined;
-    start_at: string;
-    duration: string;
-    available: boolean;
-    provider: string;
-    performer: string;
-  }[]
+  data: TimeSlotApi[]
 }
 
 export type UseTimeSlotsOptions = {
@@ -65,12 +53,7 @@ export default function useTimeSlots(options: UseTimeSlotsOptions) {
 
   const data = computed(() => {
     return responseData.value?.data.map(timeSlot => {
-      return {
-        startAt: parseAbsoluteToLocal(timeSlot.start_at),
-        duration: parseDuration(timeSlot.duration),
-        available: timeSlot.available,
-        performer: timeSlot.performer,
-      } satisfies LocalTimeSlot
+      return toLocalTimeSlot(timeSlot)
     })
   })
 

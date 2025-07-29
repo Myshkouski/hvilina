@@ -16,7 +16,7 @@ import { formatPeriodWithDuration, formatTimeSlot } from '~/utils/formatTimeSlot
 import { DateFormatter } from '@internationalized/date';
 
 const props = defineProps<{
-  period?: { startAt: Date, duration: string }
+  // period?: { startAt: Date, duration: string }
 } | {
   timeSlot?: TimePickerItem
 }>()
@@ -31,9 +31,9 @@ const df = computed(() => {
 })
 
 const text = computed(() => {
-  if ("period" in props && props.period) {
-    return formatPeriodWithDuration(props.period.startAt, props.period.duration, df.value)
-  }
+  // if ("period" in props && props.period) {
+  //   return formatPeriodWithDuration(props.period.startAt, props.period.duration, df.value)
+  // }
 
   if ("timeSlot" in props && props.timeSlot) {
     return formatTimeSlot(props.timeSlot, df.value)
