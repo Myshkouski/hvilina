@@ -21,5 +21,8 @@
     ".": "./dist/index.js",
     "./package.json": "./package.json",
     "./style.css": "./dist/index.css"
-  }
+  },
+  "files": [
+    "./dist"
+  ]
 }
