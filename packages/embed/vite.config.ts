@@ -1,0 +1,26 @@
+import { defineConfig } from "vite"
+import tailwindcss from "@tailwindcss/vite"
+import dts from "unplugin-dts/vite"
+// import tsconfigPaths from "vite-tsconfig-paths"
+import path from "node:path"
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    dts({
+      // bundleTypes: true
+    }),
+  ],
+  build: {
+    lib: {
+      entry: "./src/index.ts",
+      formats: [
+        "iife"
+      ],
+      name: "hvilina",
+      fileName: () => "index.js",
+      cssFileName: "style"
+    },
+    minify: "terser"
+  }
+})

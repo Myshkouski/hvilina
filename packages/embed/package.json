@@ -1,15 +1,27 @@
 {
-  "name": "embed",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@hvilina/embed",
+  "version": "0.0.13",
   "type": "module",
+  "main": "./dist/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@hvilina/vue": "workspace:^"
+  },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "tailwindcss": "^4.1.11",
+    "tw-animate-css": "^1.3.6",
     "typescript": "~5.8.3",
+    "unplugin-dts": "^1.0.0-beta.4",
     "vite": "^7.0.4"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json",
+    "./style.css": "./dist/index.css"
   }
 }

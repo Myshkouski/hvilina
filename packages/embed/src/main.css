@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@import "@hvilina/vue/style.css";
+
+@source "../../../node_modules/@hvilina/vue";
+@source "../../../node_modules/reka-ui";
