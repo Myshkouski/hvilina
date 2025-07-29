@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
       minify: "terser"
     },
     define: {
-      "process.env.NODE_ENV": mode
+      "process.env.NODE_ENV": JSON.stringify(mode),
     },
   }
 })
