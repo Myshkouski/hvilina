@@ -1,6 +1,6 @@
 {
   "name": "@hvilina/vue",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A starter for creating a Vue component library.",
   "type": "module",
   "license": "MIT",
