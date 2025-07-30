@@ -1,5 +1,4 @@
 import { defineConfig } from "vite"
-import tailwindcss from "@tailwindcss/vite"
 import dts from "unplugin-dts/vite"
 // import tsconfigPaths from "vite-tsconfig-paths"
 import path from "node:path"
@@ -7,7 +6,6 @@ import path from "node:path"
 export default defineConfig(({ mode }) => {
   return {
     plugins: [
-      tailwindcss(),
       dts({
         // bundleTypes: true
       }),

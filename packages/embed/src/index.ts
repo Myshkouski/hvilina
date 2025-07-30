@@ -1,2 +1,2 @@
-import "./main.css"
-export * from "@hvilina/vue"
+import { TimeSlotPicker } from "@hvilina/web-components"
+window.customElements.define("timeslot-picker", TimeSlotPicker)

@@ -9,18 +9,14 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@hvilina/vue": "workspace:^",
-    "@tailwindcss/vite": "^4.1.11",
-    "tailwindcss": "^4.1.11",
-    "tw-animate-css": "^1.3.6",
+    "@hvilina/web-components": "workspace:^",
     "typescript": "~5.8.3",
     "unplugin-dts": "^1.0.0-beta.4",
     "vite": "^7.0.4"
   },
   "exports": {
     ".": "./dist/index.js",
-    "./package.json": "./package.json",
-    "./style.css": "./dist/index.css"
+    "./package.json": "./package.json"
   },
   "files": [
     "./dist"

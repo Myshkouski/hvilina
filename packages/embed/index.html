@@ -2,21 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Vite + Vue + TS</title>
   </head>
   <body>
-    <div id="hvilina-timeslot-picker"></div>
+    <script type="module" src="./src"></script>
+    <timeslot-picker
+      id="timeslot-picker"
+      base-url="http://localhost:3000"
+      scope="default" 
+      contract="2"
+    >
+    </timeslot-picker>
+
     <script type="module">
-
-      import { mount, TimeSlotPicker } from "./src"
-
-      mount(TimeSlotPicker, "#hvilina-timeslot-picker", {
-        baseUrl: "http://localhost:3000",
-        contract: "2",
-        scope: "default"
+      const ce = document.getElementById("timeslot-picker")
+      console.debug("ce:", ce)
+      ce.addEventListener("error", event => {
+        console.debug("event:", event)
       })
 
+      ce.addEventListener("update:time-slots", event => {
+        console.debug("event:", event)
+      })
     </script>
+
+    <!-- <div id="hvilina-timeslot-picker"></div>
+    <script type="module" src="./src/mountTimeSlotPicker.ts"></script> -->
   </body>
 </html>

@@ -8,12 +8,9 @@
     },
     "packages/embed": {
       "name": "@hvilina/embed",
-      "version": "0.0.17",
+      "version": "0.0.18",
       "devDependencies": {
-        "@hvilina/vue": "workspace:^",
-        "@tailwindcss/vite": "^4.1.11",
-        "tailwindcss": "^4.1.11",
-        "tw-animate-css": "^1.3.6",
+        "@hvilina/web-components": "workspace:^",
         "typescript": "~5.8.3",
         "unplugin-dts": "^1.0.0-beta.4",
         "vite": "^7.0.4",
@@ -21,7 +18,7 @@
     },
     "packages/lib": {
       "name": "@hvilina/lib",
-      "version": "0.0.17",
+      "version": "0.0.18",
       "dependencies": {
         "@myshkouski/web-crypto": "^0.0.4",
         "hex-encoding": "^2.0.3",
@@ -34,7 +31,7 @@
     },
     "packages/vue": {
       "name": "@hvilina/vue",
-      "version": "0.0.17",
+      "version": "0.0.18",
       "dependencies": {
         "@internationalized/date": "^3.8.2",
         "@tailwindcss/vite": "^4.1.11",
@@ -83,7 +80,7 @@
     },
     "packages/web-components": {
       "name": "@hvilina/web-components",
-      "version": "0.0.0",
+      "version": "0.0.18",
       "dependencies": {
         "vue": "^3.5.17",
       },
