@@ -8,17 +8,45 @@
   </head>
   <body>
     <script type="module">
-      import { TimeSlotPicker } from "./src"
+      import { TimeSlotPicker, TimeSlotPickerRoot, TimeSlotPickerFormField } from "./src"
       window.customElements.define("timeslot-picker", TimeSlotPicker)
+      window.customElements.define("timeslot-picker-root", TimeSlotPickerRoot)
+      window.customElements.define("timeslot-picker-field", TimeSlotPickerFormField)
     </script>
-    <timeslot-picker
-      id="timeslot-picker"
-      base-url="http://localhost:3000"
-      scope="default" 
-      contract="2"
-    >
-      <!-- <p>Hello</p> -->
-    </timeslot-picker>
+    <form action="/test">
+      <div>
+        <timeslot-picker
+          id="timeslot-picker"
+          base-url="http://localhost:3000"
+          scope="default" 
+          contract="2"
+        >
+          <input slot="reservation-id-input" name="timeslot-reservation-id" type="hidden" value="293" slot="reservation-id-input">Hello</input>
+        </timeslot-picker>
+
+        <timeslot-picker-root
+          id="timeslot-picker"
+          base-url="http://localhost:3000"
+          scope="default" 
+          contract="2"
+        >
+          <p>timeslot-picker-root</p>
+        </timeslot-picker>
+
+        <!-- <timeslot-picker-field
+          id="timeslot-picker"
+          field-name="timeslot-reservation-id"
+          base-url="http://localhost:3000"
+          scope="default" 
+          contract="2"
+        >
+        </timeslot-picker-field> -->
+      </div>
+
+      <button type="submit">
+        Submit
+      </button>
+    </form>
 
     <script type="module">
       const ce = document.getElementById("timeslot-picker")

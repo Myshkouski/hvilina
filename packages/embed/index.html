@@ -14,17 +14,23 @@
       scope="default" 
       contract="2"
     >
+      <!-- <slot name="reservation-id-input">
+        <input type="text" name="timeslot-reservation-id" readonly>
+      </slot> -->
     </timeslot-picker>
 
     <script type="module">
       const ce = document.getElementById("timeslot-picker")
-      console.debug("ce:", ce)
       ce.addEventListener("error", event => {
-        console.debug("event:", event)
+
       })
 
       ce.addEventListener("update:time-slots", event => {
         console.debug("event:", event)
+      })
+
+      ce.addEventListener("update:reservation-id", event => {
+
       })
     </script>
 
