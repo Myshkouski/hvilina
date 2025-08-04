@@ -41,7 +41,7 @@
     "prepublishOnly": "bun run build"
   },
   "peerDependencies": {
-    "vue": "^3.0.0"
+    "vue": "^3.5.0"
   },
   "devDependencies": {
     "@hvilina/lib": "workspace:^",
