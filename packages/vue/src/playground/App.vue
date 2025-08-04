@@ -28,6 +28,7 @@
             contract="2"
             scope="default"
             @update:reservation-id="handleChange"
+            :disabled="!services.length"
           )
     div
       Button(

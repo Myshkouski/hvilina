@@ -32,7 +32,8 @@ import type { TimeSlotApi } from "~/types/TimeSlotApi";
 import { toLocalTimeSlot } from "~/utils/toLocalTimeSlot";
 import { toTimePickerItem } from "~/utils/toTimePickerItem";
 
-export interface Props {
+export type Props = {
+  disabled?: boolean
   baseUrl: string | URL
   contract?: string
   scope?: string
@@ -48,6 +49,7 @@ export type Emits = {
 const {
   baseUrl,
   contract,
+  disabled: disabledProp,
   scope,
   to
 } = defineProps<Props>()
@@ -57,6 +59,9 @@ const emit = defineEmits<Emits>()
 const dialogOpen = ref(false)
 
 const disabled = computed(() => {
+  if (disabledProp) {
+    return true
+  }
   return !contract
 })
 
