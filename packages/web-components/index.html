@@ -9,14 +9,13 @@
   <body>
     <script type="module">
       import { TimeSlotPicker, TimeSlotPickerRoot, TimeSlotPickerFormField } from "./src"
-      window.customElements.define("timeslot-picker", TimeSlotPicker)
-      window.customElements.define("timeslot-picker-root", TimeSlotPickerRoot)
+      // window.customElements.define("timeslot-picker", TimeSlotPicker)
+      // window.customElements.define("timeslot-picker-root", TimeSlotPickerRoot)
       window.customElements.define("timeslot-picker-field", TimeSlotPickerFormField)
     </script>
     <form action="/test">
       <div>
-        <timeslot-picker
-          id="timeslot-picker"
+        <!-- <timeslot-picker
           base-url="http://localhost:3000"
           scope="default" 
           contract="2"
@@ -25,41 +24,27 @@
         </timeslot-picker>
 
         <timeslot-picker-root
-          id="timeslot-picker"
           base-url="http://localhost:3000"
           scope="default" 
           contract="2"
         >
           <p>my own components</p>
           <p>go here</p>
-        </timeslot-picker-root>
+        </timeslot-picker-root> -->
 
-        <!-- <timeslot-picker-field
-          id="timeslot-picker"
+        <timeslot-picker-field
           field-name="timeslot-reservation-id"
           base-url="http://localhost:3000"
           scope="default" 
           contract="2"
         >
-        </timeslot-picker-field> -->
+        </timeslot-picker-field>
       </div>
 
       <button type="submit">
         Submit
       </button>
     </form>
-
-    <script type="module">
-      const ce = document.getElementById("timeslot-picker")
-      console.debug("ce:", ce)
-      ce.addEventListener("error", event => {
-        console.debug("event:", event)
-      })
-
-      ce.addEventListener("update:time-slots", event => {
-        console.debug("event:", event)
-      })
-    </script>
 
     <!-- <div id="hvilina-timeslot-picker"></div>
     <script type="module" src="./src/mountTimeSlotPicker.ts"></script> -->
