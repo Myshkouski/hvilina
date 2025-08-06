@@ -9,7 +9,7 @@
     },
     "packages/embed": {
       "name": "@hvilina/embed",
-      "version": "0.0.21",
+      "version": "0.0.22",
       "devDependencies": {
         "@hvilina/web-components": "workspace:^",
         "typescript": "~5.8.3",
@@ -19,7 +19,7 @@
     },
     "packages/lib": {
       "name": "@hvilina/lib",
-      "version": "0.0.21",
+      "version": "0.0.22",
       "dependencies": {
         "@myshkouski/web-crypto": "^0.0.4",
         "hex-encoding": "^2.0.3",
@@ -32,10 +32,12 @@
     },
     "packages/vue": {
       "name": "@hvilina/vue",
-      "version": "0.0.21",
+      "version": "0.0.22",
       "dependencies": {
+        "@hvilina/lib": "workspace:^",
         "@internationalized/date": "^3.8.2",
         "@tailwindcss/vite": "^4.1.11",
+        "@vee-validate/zod": "^4.15.1",
         "@vueuse/core": "^13.6.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -52,11 +54,9 @@
         "vue-sonner": "^2.0.2",
       },
       "devDependencies": {
-        "@hvilina/lib": "workspace:^",
         "@sxzz/eslint-config": "^7.1.0",
         "@sxzz/prettier-config": "^2.2.3",
         "@types/node": "^24.1.0",
-        "@vee-validate/zod": "^4.15.1",
         "@vitejs/plugin-legacy": "^7.1.0",
         "@vitejs/plugin-vue": "^6.0.1",
         "@vue/language-plugin-pug": "^3.0.4",
@@ -84,7 +84,7 @@
     },
     "packages/web-components": {
       "name": "@hvilina/web-components",
-      "version": "0.0.21",
+      "version": "0.0.22",
       "dependencies": {
         "vue": "^3.5.17",
       },
