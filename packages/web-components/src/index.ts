@@ -3,7 +3,9 @@ import { TimeSlotPicker, TimeSlotPickerRoot, TimeSlotPickerFormField } from "./c
 
 const customTimeSlotPicker = defineCustomElement(TimeSlotPicker)
 const customTimeSlotPickerRoot = defineCustomElement(TimeSlotPickerRoot)
-const customTimeSlotPickerFormField = defineCustomElement(TimeSlotPickerFormField)
+const customTimeSlotPickerFormField = defineCustomElement(TimeSlotPickerFormField, {
+  shadowRoot: false
+})
 
 export {
   customTimeSlotPicker as TimeSlotPicker,

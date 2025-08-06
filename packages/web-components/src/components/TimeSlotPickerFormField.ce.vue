@@ -1,23 +1,42 @@
 <template>
-  <TimeSlotPicker 
+  <timeslot-picker
     v-bind="props"
-    @error="emit('error', $event)"
-    @update:reservation-id="emit('update:reservationId', $event)"
-    @update:time-slots="emit('update:timeSlots', $event)">
-  </TimeSlotPicker>
+    @error="onError"
+    @reservation-id-update="onReservationIdUpdate"
+  >
+  </timeslot-picker>
   <input type="hidden" :name="fieldName" :value="reservationId" :disabled="!reservationId" readonly>
 </template>
 
 <script setup lang="ts">
 
-import { TimeSlotPicker, type TimeSlotPickerProps, type TimeSlotPickerEmits } from "@hvilina/vue";
+import type { TimeSlotPickerProps } from "@hvilina/vue"
+import { TimeSlotPicker } from "~/index"
 import { ref } from "vue";
-const props = defineProps<TimeSlotPickerProps & {
+
+export type Props = TimeSlotPickerProps & {
   fieldName: string
-}>()
-const emit = defineEmits<TimeSlotPickerEmits>()
+}
+
+const props = defineProps<Props>()
+// const emit = defineEmits<TimeSlotPickerEmits>()
 const reservationId = ref<string>()
 
-</script>
+function onReservationIdUpdate(event: CustomEvent<[string]>) {
+  reservationId.value = event.detail[0]
+}
 
-<style src="~/assets/style/main.css" />
+function onError(value: any) {
+  // console.debug("onError():", value)
+}
+
+if (!import.meta.env.SSR) {
+  const componentName = "timeslot-picker"
+  const customTimeSlotPicker = window.customElements.get(componentName)
+
+  if (!customTimeSlotPicker) {
+    window.customElements.define(componentName, TimeSlotPicker)
+  }
+}
+
+</script>
