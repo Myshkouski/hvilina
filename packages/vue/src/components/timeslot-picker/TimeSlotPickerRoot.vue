@@ -10,7 +10,7 @@ slot(
 
 import { useTimeSlots } from '~/composables';
 import type { LocalTimeSlot, TimePickerItem } from '~/components/timeslot-dialog/TimePicker.vue';
-import { computed, onMounted, ref, shallowRef, watch } from 'vue';
+import { computed, onMounted, shallowRef, watch } from 'vue';
 import { formatDuration } from "~/utils/formatDuration";
 import {
   createReservationRequest,
@@ -46,8 +46,6 @@ const {
 } = defineProps<Props>()
 
 const emit = defineEmits<Emits>()
-
-const dialogOpen = ref(false)
 
 const disabled = computed(() => {
   if (disabledProp) {
@@ -175,7 +173,6 @@ async function upsertReservation(timeSlotValue: TimePickerItem) {
   })
 
   timeSlot.value = timeSlotValue
-  dialogOpen.value = false
 }
 
 function onError(error: any) {
