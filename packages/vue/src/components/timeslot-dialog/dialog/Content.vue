@@ -156,7 +156,6 @@ watch(selectedStartDate, () => {
 // }
 
 function onRefreshClick() {
-  console.debug("onRefreshClick")
   emit("click:refresh")
   // refreshTimeSlots({
   //   cause: "refresh:manual"
@@ -164,7 +163,6 @@ function onRefreshClick() {
 }
 
 function onConfirmClick() {
-  console.debug("onConfirmClick")
   if (!selectedTimeSlot.value) return
   if (!selectedTimeSlot.value.available) return
 
