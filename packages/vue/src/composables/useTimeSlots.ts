@@ -12,7 +12,7 @@ export type UseTimeSlotsOptions = {
   contract: MaybeRefOrGetter<string | undefined>
   scheduleRequirements?: MaybeRefOrGetter<string[] | undefined>
   refreshInterval?: MaybeRefOrGetter<number>
-  // from?: MaybeRefOrGetter<Date | undefined>
+  from?: MaybeRefOrGetter<Date | undefined>
   to?: MaybeRefOrGetter<Date | undefined>
 }
 
@@ -32,7 +32,8 @@ export default function useTimeSlots(options: UseTimeSlotsOptions) {
     if (contract) {
       url.searchParams.append("contract", contract)
     }
-    url.searchParams.append("from", now.value.toISOString())
+    const from = toValue(options.from) ?? now.value
+    url.searchParams.append("from", from.toISOString())
     const to = toValue(options.to)
     if (to) {
       url.searchParams.append("to", to.toISOString())

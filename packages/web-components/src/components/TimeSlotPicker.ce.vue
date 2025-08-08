@@ -10,14 +10,27 @@
 <script setup lang="ts">
 
 import { TimeSlotPicker, type TimeSlotPickerProps } from "@hvilina/vue";
-const delegatedProps = defineProps<TimeSlotPickerProps>()
+import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";
+import { computed } from "vue";
+
+export type Props = TimeSlotPickerProps & {
+  baseUrl: string
+  from?: string
+  to?: string
+}
+const props = defineProps<Props>()
+
+console.debug({...props})
+
+const delegatedProps = computed(() => {
+  return delegateTimeSlotPickerProps(props)
+})
 
 export type Emits = {
   (event: "error", value: any): void
   (event: "reservationIdUpdate", value: string | undefined): void
   (event: "timeSlotsUpdate", value: object[] | undefined): void
 }
-
 const emit = defineEmits<Emits>()
 
 </script>

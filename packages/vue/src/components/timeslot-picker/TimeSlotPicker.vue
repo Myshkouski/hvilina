@@ -1,10 +1,7 @@
 <template lang="pug">
 
 TimeSlotPickerRoot(
-  :disabled="disabled"
-  :base-url="baseUrl"
-  :contract="contract"
-  :scope="scope"
+  v-bind="props"
   @update:error="emit('error', $event)"
   @update:reservation-id="emit('update:reservationId', $event)"
   @update:time-slots="emit('update:timeSlots', $event)"
@@ -31,7 +28,7 @@ import type { TimePickerItem } from "~/components/timeslot-dialog/TimePicker.vue
 
 export type { Props, Emits }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const dialogOpen = ref(false)

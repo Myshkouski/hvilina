@@ -1,6 +1,6 @@
 <template>
   <TimeSlotPickerRoot 
-    v-bind="props"
+    v-bind="delegatedProps"
     @error="emit('error', $event)"
     @update:reservation-id="emit('reservationIdUpdate', $event)" 
     @update:time-slots="emit('timeSlotsUpdate', $event)"
@@ -13,9 +13,17 @@
 
 <script setup lang="ts">
 
-import { TimeSlotPickerRoot, type TimeSlotPickerRootProps } from "@hvilina/vue";
-import type { Emits as TimeSlotPickerEmits } from "./TimeSlotPicker.ce.vue"
-const props = defineProps<TimeSlotPickerRootProps>()
+import type { Props as TimeSlotPickerProps, Emits as TimeSlotPickerEmits } from "./TimeSlotPicker.ce.vue"
+import { computed } from "vue";
+import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";
+
+export type Props = TimeSlotPickerProps
+const props = defineProps<Props>()
+const delegatedProps = computed(() => {
+  return delegateTimeSlotPickerProps(props)
+})
+
+export type Emits = TimeSlotPickerEmits
 const emit = defineEmits<TimeSlotPickerEmits>()
 
 </script>

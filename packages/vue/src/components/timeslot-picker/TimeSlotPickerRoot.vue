@@ -28,6 +28,7 @@ export type Props = {
   baseUrl: string | URL
   contract?: string
   scope?: string
+  from?: Date
   to?: Date
 }
 
@@ -42,6 +43,7 @@ const {
   contract,
   disabled: disabledProp,
   scope,
+  from,
   to
 } = defineProps<Props>()
 
@@ -80,6 +82,7 @@ const {
 } = useTimeSlots({
   baseUrl,
   contract,
+  from,
   to
 })
 

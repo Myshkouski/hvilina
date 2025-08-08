@@ -1,6 +1,6 @@
 <template>
   <timeslot-picker
-    v-bind="props"
+    v-bind="delegatedProps"
     @error="onError"
     @reservation-id-update="onReservationIdUpdate"
   >
@@ -10,15 +10,19 @@
 
 <script setup lang="ts">
 
-import type { TimeSlotPickerProps } from "@hvilina/vue"
+import type { Props as TimeSlotPickerProps } from "./TimeSlotPicker.ce.vue"
 import { TimeSlotPicker } from "~/index"
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";
 
 export type Props = TimeSlotPickerProps & {
   fieldName: string
 }
 
 const props = defineProps<Props>()
+const delegatedProps = computed(() => {
+  return delegateTimeSlotPickerProps(props)
+})
 // const emit = defineEmits<TimeSlotPickerEmits>()
 const reservationId = ref<string>()
 
