@@ -22,6 +22,9 @@
     "vite-plugin-dts": "^4.5.4",
     "vue-tsc": "^3.0.4"
   },
+  "files": [
+    "./dist"
+  ],
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json",
