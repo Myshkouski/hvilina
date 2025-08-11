@@ -20,8 +20,6 @@ export type Props = TimeSlotPickerProps & {
 }
 const props = defineProps<Props>()
 
-console.debug({...props})
-
 const delegatedProps = computed(() => {
   return delegateTimeSlotPickerProps(props)
 })
