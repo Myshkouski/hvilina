@@ -2,9 +2,16 @@
 
 CustomDialogScrollContent
   DialogHeader
-    DialogTitle Select date and time
-    DialogDescription
-      | Click "Save" when you&apos;re done.
+    DialogTitle(
+      class="first-letter:capitalize"
+    )
+      slot(name="title-text")
+        | Select date and time
+    DialogDescription(
+      class="first-letter:capitalize"
+    )
+      slot(name="description-text")
+        | Click "Save" when you&apos;re done.
   
   TimeSlotDateTimePicker.my-4(
     :time-slots="timeSlots"
@@ -29,11 +36,13 @@ CustomDialogScrollContent
           :time-slot="selectedTimeSlot"
         )
         Button(
+          class="first-letter:capitalize"
           type="button"
           @click="onConfirmClick"
           :disabled="disableConfirm"
         )
-          | Confirm
+          slot(name="confirm-text")
+            | Confirm
   
 </template>
 
