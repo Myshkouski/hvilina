@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 
+import { TimeSlotPickerRoot } from "@hvilina/vue"
 import type { Props as TimeSlotPickerProps, Emits as TimeSlotPickerEmits } from "./TimeSlotPicker.ce.vue"
 import { computed } from "vue";
 import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";

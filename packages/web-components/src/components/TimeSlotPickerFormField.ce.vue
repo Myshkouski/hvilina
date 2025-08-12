@@ -13,7 +13,6 @@
 import type { Props as TimeSlotPickerProps } from "./TimeSlotPicker.ce.vue"
 import { TimeSlotPicker } from "~/index"
 import { computed, ref } from "vue";
-import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";
 
 export type Props = TimeSlotPickerProps & {
   fieldName: string
@@ -23,7 +22,7 @@ export type Props = TimeSlotPickerProps & {
 const props = defineProps<Props>()
 const delegatedProps = computed(() => {
   return {
-    ...delegateTimeSlotPickerProps(props),
+    ...props,
     lang: props.lang
   }
 })

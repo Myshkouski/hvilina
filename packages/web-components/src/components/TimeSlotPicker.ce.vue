@@ -46,14 +46,21 @@ import { useI18n } from "vue-i18n"
 
 const { t } = useI18n()
 
-export type Props = TimeSlotPickerProps & {
+type PrimitiveProps = {
   baseUrl: string
   from?: string
   to?: string
   scheduleRequirements?: string
-} & {
+}
+
+type LangProps = {
   lang?: string
 }
+
+export type Props = Omit<
+  TimeSlotPickerProps, 
+  "baseUrl" | "from" | "to" | "scheduleRequirements"
+> & PrimitiveProps & LangProps
 const props = defineProps<Props>()
 
 const delegatedProps = computed(() => {
