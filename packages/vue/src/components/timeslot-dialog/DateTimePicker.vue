@@ -7,11 +7,15 @@
     v-model="startDate"
     :dates="timeSlotDates"
   )
-  TimeSlotTimePicker.min-h-24.max-h-32.justify-center(
-    class="sm:max-h-96"
+  TimeSlotTimePicker.min-h-24.justify-center(
+    :class=`
+      cn(
+        'sm:max-h-96', 'max-h-32'
+      )
+    `
     v-model="timeSlot"
     :selected-date="startDate"
-    :time-slots="timeSlots"
+    :time-slots="available"
   )
   
 </template>
@@ -20,22 +24,23 @@
 
 import TimeSlotDatePicker from "./DatePicker.vue"
 import TimeSlotTimePicker from "./TimePicker.vue"
-
+import { cn } from "~/utils/shadcn"
 import { toCalendarDate } from '@internationalized/date'
-import type { LocalTimeSlot, TimePickerItem } from './TimePicker.vue'
+import type { TimePickerItem } from './TimePicker.vue'
 import { computed } from 'vue'
+import type { LocalTimeSlot } from "~/types/LocalTimeSlot"
 
 const {
-  timeSlots = []
+  available = []
 } = defineProps<{
-  timeSlots?: LocalTimeSlot[]
+  available?: LocalTimeSlot[]
 }>()
 
 const startDate = defineModel<Date>("date")
 const timeSlot = defineModel<TimePickerItem>("timeSlot")
 
 const timeSlotsByDate = computed(() => {
-  return Object.groupBy(timeSlots, item => {
+  return Object.groupBy(available, item => {
     return toCalendarDate(item.startAt).toString()
   })
 })

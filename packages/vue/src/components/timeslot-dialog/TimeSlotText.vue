@@ -10,9 +10,9 @@ span.text-muted-foreground(
 <script setup lang="ts">
 
 import { usePreferredLanguages } from '@vueuse/core';
-import type { TimePickerItem } from '../TimePicker.vue';
+import type { TimePickerItem } from './TimePicker.vue';
 import { computed, toValue } from 'vue';
-import { formatPeriodWithDuration, formatTimeSlot } from '~/utils/formatTimeSlot';
+import { formatTimeSlot } from '~/utils/formatTimeSlot';
 import { DateFormatter } from '@internationalized/date';
 
 const props = defineProps<{

@@ -4,39 +4,48 @@ Dialog(
   v-model:open="dialogOpen"
 )
   TimeSlotDialogTrigger(
-    :time-slot="timeSlot"
+    :time-slot="selected"
     :disabled="disabled"
+    :loading="loading"
   )
-    //- p {{ timeSlot }}
   
   TimeSlotDialogContent(
-    :time-slots="timeSlots"
-    :time-slot="selectedTimeSlot"
-    @update:time-slot="onTimeSlotUpdate"
+    :available="available"
+    :loading="loading"
+    :disable-confirm="disabled"
+    :disable-refresh="disabled"
+    v-model:selected="selectedTimeSlot"
     @click:confirm="onConfirmClick"
     @click:refresh="onRefreshClick"
   )
+    template(#title-text)
+      slot(name="content-title-text")
+    template(#description-text)
+      slot(name="content-description-text")
+    template(#confirm-text)
+      slot(name="content-confirm-text")
 
 </template>
 
 <script setup lang="ts">
 
-import {
-  TimeSlotDialogTrigger,
-  TimeSlotDialogContent
-} from "./dialog" 
-import { Dialog } from "~/components/ui/dialog"
-import type { LocalTimeSlot, TimePickerItem } from "./TimePicker.vue"
+import TimeSlotDialogTrigger from "./TimeSlotDialogTrigger.vue" 
+import TimeSlotDialogContent from "./TimeSlotDialogContent.vue"
+import type { TimePickerItem } from "./TimePicker.vue"
 import { shallowRef, watch } from "vue"
+import type { LocalTimeSlot } from "~/types/LocalTimeSlot"
+import { Dialog } from "~/components/ui/dialog"
 
 const {
-  timeSlots,
-  timeSlot,
-  disabled = false,
+  available,
+  selected,
+  disabled,
+  loading,
 } = defineProps<{
-  timeSlots?: LocalTimeSlot[]
-  timeSlot?: TimePickerItem
+  available?: LocalTimeSlot[]
+  selected?: TimePickerItem
   disabled?: boolean
+  loading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -48,7 +57,7 @@ const dialogOpen = defineModel("open", {
   default: false
 })
 
-const selectedTimeSlot = shallowRef<TimePickerItem | undefined>(timeSlot)
+const selectedTimeSlot = shallowRef<TimePickerItem | undefined>(selected)
 
 const selectedStartDate = shallowRef<Date>()
 watch(selectedStartDate, (date, oldDate) => {
@@ -64,10 +73,6 @@ function onConfirmClick() {
 
 function onRefreshClick() {
   emit("click:refresh")
-}
-
-function onTimeSlotUpdate(value: TimePickerItem | undefined) {
-  selectedTimeSlot.value = value
 }
 
 </script>

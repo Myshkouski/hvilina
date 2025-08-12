@@ -2,9 +2,10 @@
 
 .flex
   DialogTrigger(as-child)
-    TimeSlotTriggerButton(
+    TimeSlotDialogTriggerButton(
       :time-slot="timeSlot"
       :disabled="disabled"
+      :loading="loading"
     )
       slot
 
@@ -12,8 +13,8 @@
 
 <script setup lang="ts">
 
-import type { TimePickerItem } from "../TimePicker.vue";
-import TimeSlotTriggerButton from "./TriggerButton.vue"
+import type { TimePickerItem } from "./TimePicker.vue";
+import TimeSlotDialogTriggerButton from "./TimeSlotDialogTriggerButton.vue"
 import {
   DialogTrigger
 } from "~/components/ui/dialog"
@@ -21,6 +22,7 @@ import {
 defineProps<{
   timeSlot?: TimePickerItem
   disabled?: boolean
+  loading?: boolean
 }>()
 
 </script>

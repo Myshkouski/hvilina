@@ -9,7 +9,7 @@ slot(
 <script setup lang="ts">
 
 import { useTimeSlots } from '~/composables';
-import type { LocalTimeSlot, TimePickerItem } from '~/components/timeslot-dialog/TimePicker.vue';
+import type { TimePickerItem } from '~/components/timeslot-dialog/TimePicker.vue';
 import { computed, onMounted, shallowRef, watch } from 'vue';
 import { formatDuration } from "~/utils/formatDuration";
 import {
@@ -22,14 +22,20 @@ import { useBrowserLocation } from "@vueuse/core";
 import type { TimeSlotApi } from "~/types/TimeSlotApi";
 import { toLocalTimeSlot } from "~/utils/toLocalTimeSlot";
 import { toTimePickerItem } from "~/utils/toTimePickerItem";
+import type { LocalTimeSlot } from '~/types/LocalTimeSlot';
 
 export type Props = {
   disabled?: boolean
   baseUrl: string | URL
   contract?: string
   scope?: string
+  scheduleRequirements?: string[]
   from?: Date
   to?: Date
+}
+
+export type Filter = {
+  schedule?: string[]
 }
 
 export type Emits = {
@@ -44,13 +50,27 @@ const {
   disabled: disabledProp,
   scope,
   from,
-  to
+  to,
+  scheduleRequirements
 } = defineProps<Props>()
 
 const emit = defineEmits<Emits>()
 
+const availableLoading = computed(() => {
+  return "loading" == status.value
+})
+
+const reservationLoading = shallowRef(false)
+
+const loading = computed(() => {
+  return availableLoading.value || reservationLoading.value
+})
+
 const disabled = computed(() => {
   if (disabledProp) {
+    return true
+  }
+  if (loading.value) {
     return true
   }
   return !contract
@@ -59,15 +79,17 @@ const disabled = computed(() => {
 const defaultSlotProps = computed(() => {
   return {
     disabled: disabled.value,
+    loading: loading.value,
     available: timeSlots.value,
     selected: timeSlot.value,
     onConfirm: confirm,
-    onRefresh: refreshTimeSlots
+    onRefresh: refreshTimeSlots,
   } satisfies DefaultSlotProps
 })
 
 export interface DefaultSlotProps {
   disabled: boolean
+  loading: boolean
   available?: LocalTimeSlot[]
   selected?: LocalTimeSlot
   onConfirm: (timeSlot: TimePickerItem) => any
@@ -78,16 +100,22 @@ const {
   data: timeSlots,
   error: timeSlotsError,
   refresh: refreshTimeSlots,
-  // isFinished: isTimeSlotsLoaded
+  status
 } = useTimeSlots({
   baseUrl,
   contract,
   from,
-  to
+  to,
+  scheduleRequirements
 })
 
+async function refreshIfNotDisabled() {
+  if (disabledProp) return
+  await refreshTimeSlots()
+}
+
 onMounted(() => {
-  refreshTimeSlots().catch(onError)
+  refreshIfNotDisabled().catch(onError)
 })
 
 watch(timeSlots, timeSlots => {
@@ -128,12 +156,18 @@ onMounted(async () => {
   timeSlot.value = toTimePickerItem(reservedTimeSlot)
 })
 
-// function onConfirmClick(timeSlot: TimePickerItem) {
-//   confirm(timeSlot).catch(onError)
-// }
+import { promiseTimeout } from "@vueuse/core"
 
 async function confirm(timeSlot: TimePickerItem) {
-  await upsertReservation(timeSlot)
+  try {
+    reservationLoading.value = true
+    await Promise.all([
+      upsertReservation(timeSlot),
+      promiseTimeout(1000)
+    ])
+  } finally {
+    reservationLoading.value = false
+  }
 }
 
 

@@ -6,15 +6,24 @@ TimeSlotPickerRoot(
   @update:reservation-id="emit('update:reservationId', $event)"
   @update:time-slots="emit('update:timeSlots', $event)"
 )
-  template(#default="{ disabled, available, selected, onConfirm, onRefresh }")
+  template(
+    #default="{ disabled, loading, available, selected, onConfirm, onRefresh }"
+  )
     TimeSlotDialog(
       v-model:open="dialogOpen"
       :disabled="disabled"
-      :time-slots="available"
-      :time-slot="selected"
+      :loading="loading"
+      :available="available"
+      :selected="selected"
       @click:refresh="onRefresh"
       @click:confirm="onConfirmClick($event, onConfirm)"
     )
+      template(#content-title-text)
+        slot(name="content-title-text")
+      template(#content-description-text)
+        slot(name="content-description-text")
+      template(#content-confirm-text)
+        slot(name="content-confirm-text")
 
 </template>
 
@@ -22,8 +31,10 @@ TimeSlotPickerRoot(
 
 import TimeSlotPickerRoot from "./TimeSlotPickerRoot.vue"
 import type { Props, Emits } from "./TimeSlotPickerRoot.vue"
-import { TimeSlotDialog } from "~/components/timeslot-dialog"
-import { ref } from 'vue'
+import {
+  TimeSlotDialog
+} from "~/components/timeslot-dialog"
+import { ref } from "vue"
 import type { TimePickerItem } from "~/components/timeslot-dialog/TimePicker.vue"
 
 export type { Props, Emits }
@@ -33,7 +44,8 @@ const emit = defineEmits<Emits>()
 
 const dialogOpen = ref(false)
 
-function onConfirmClick(value: TimePickerItem, cb: (timeSlot: TimePickerItem) => Promise<void>) {
+function onConfirmClick(value: TimePickerItem | undefined, cb: (timeSlot: TimePickerItem) => Promise<void>) {
+  if (!value) return
   cb(value).then(() => {
     dialogOpen.value = false
   })

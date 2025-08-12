@@ -29,6 +29,7 @@
             scope="default"
             @update:reservation-id="handleChange"
             :disabled="!services.length"
+            :schedule-requirements="scheduleRequirements"
           )
     div
       Button(
@@ -57,8 +58,8 @@ import {
 import { z } from "zod"
 import { toTypedSchema } from "@vee-validate/zod"
 
-const baseUrl = "http://localhost:3000"
-// const baseUrl = "https://taim-ui-nuxt.alexeimyshkouski.workers.dev"
+// const baseUrl = "http://localhost:3000"
+const baseUrl = "https://taim-ui-nuxt.alexeimyshkouski.workers.dev"
 const deliveryId = ref<string>()
 const services = shallowRef<Service[]>([])
 
