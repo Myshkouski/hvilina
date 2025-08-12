@@ -13,5 +13,6 @@ export function delegateTimeSlotPickerProps(props: TimeSlotPickerRootProps) {
     to: props.to
       ? new Date(props.to)
       : undefined,
+    scheduleRequirements: props.scheduleRequirements?.split(" ").filter(value => !!value)
   } satisfies TimeSlotPickerProps
 }

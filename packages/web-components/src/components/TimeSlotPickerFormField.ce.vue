@@ -17,11 +17,15 @@ import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";
 
 export type Props = TimeSlotPickerProps & {
   fieldName: string
+  lang?: string
 }
 
 const props = defineProps<Props>()
 const delegatedProps = computed(() => {
-  return delegateTimeSlotPickerProps(props)
+  return {
+    ...delegateTimeSlotPickerProps(props),
+    lang: props.lang
+  }
 })
 // const emit = defineEmits<TimeSlotPickerEmits>()
 const reservationId = ref<string>()

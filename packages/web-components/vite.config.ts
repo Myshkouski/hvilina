@@ -2,6 +2,7 @@ import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import tailwindcss from "@tailwindcss/vite"
 import dts from "unplugin-dts/vite"
+import i18n from '@intlify/unplugin-vue-i18n/vite'
 import postcssPlugin from "./postcssPlugin"
 // import tsconfigPaths from "vite-tsconfig-paths"
 import path from "node:path"
@@ -9,7 +10,10 @@ import path from "node:path"
 export default defineConfig(({ mode }) => {
   return {
     plugins: [
-      vue(),
+      vue(), ,
+      i18n({
+
+      }),
       tailwindcss(),
       dts({
         tsconfigPath: "tsconfig.app.json",
