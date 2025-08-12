@@ -15,7 +15,7 @@
         {{ t("button.confirm") }}
       </template>
       <template #content-description-text>
-        {{ t("description") }} {{ props.lang }}
+        {{ t("description") }}
       </template>
     </TimeSlotPicker>
   </LocaleProvider>
@@ -25,12 +25,12 @@
 
 en:
   title: select date and time
-  description: ''
+  description: сlick "Confirm" when you're done.
   button:
     confirm: confirm
 ru:
   title: выберите дату и время
-  description: ''
+  description: Нажмите "Подтвердить" после выбора даты и времени.
   button:
     confirm: подтвердить
 
