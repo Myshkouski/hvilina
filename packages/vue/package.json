@@ -52,6 +52,7 @@
     "@vue/language-plugin-pug": "^3.0.4",
     "@vue/test-utils": "^2.4.6",
     "bumpp": "^10.2.0",
+    "esbuild": "^0.25.8",
     "eslint": "^9.32.0",
     "happy-dom": "^18.0.1",
     "prettier": "^3.6.2",
