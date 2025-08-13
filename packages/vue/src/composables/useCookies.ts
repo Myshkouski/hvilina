@@ -33,7 +33,7 @@ export function useCookies<T extends Record<string, any> = Record<string, any>>(
 
   const immediate = options?.immediate ?? true;
   if (!!cookies && immediate) {
-    data.value = cookies.getAll();
+    data.value = cookies.getAll({ doNotParse: true });
   }
 
   return {
