@@ -24,6 +24,8 @@ Dialog(
       slot(name="content-description-text")
     template(#confirm-text)
       slot(name="content-confirm-text")
+    template(#timeslot-fallback-text="slotProps")
+      slot(name="content-timeslot-fallback-text" v-bind="slotProps")
 
 </template>
 

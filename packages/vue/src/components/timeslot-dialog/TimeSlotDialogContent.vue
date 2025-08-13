@@ -36,6 +36,11 @@ CustomDialogScrollContent
         TimeSlotText(
           :time-slot="selectedTimeSlot"
         )
+          template(#fallback-text="slotProps")
+            slot(
+              name="timeslot-fallback-text" 
+              v-bind="slotProps"
+            )
         Button(
           class="cursor-pointer first-letter:capitalize"
           type="button"
