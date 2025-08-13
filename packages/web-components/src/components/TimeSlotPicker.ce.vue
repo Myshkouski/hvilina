@@ -17,7 +17,7 @@
       <template #content-description-text>
         {{ t("description") }}
       </template>
-      <template #content-timeslot-fallback-text>
+      <template #timeslot-fallback-text>
         {{ t("timeslot-fallback") }}
       </template>
     </TimeSlotPicker>
