@@ -16,8 +16,7 @@ import { computed, ref } from "vue";
 
 export type Props = TimeSlotPickerProps & {
   fieldName: string
-  lang?: string
-}
+} & Pick<TimeSlotPickerProps, "lang">
 
 const props = defineProps<Props>()
 const delegatedProps = computed(() => {
