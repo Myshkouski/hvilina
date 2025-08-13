@@ -11,7 +11,6 @@ span.text-muted-foreground
   )
     slot(
       name="fallback-text"
-      v-bind="{ value: timeSlot }"
     )
       | Pick a timeslot
 

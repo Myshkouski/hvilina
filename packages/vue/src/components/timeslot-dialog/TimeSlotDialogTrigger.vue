@@ -7,7 +7,10 @@
       :disabled="disabled"
       :loading="loading"
     )
-      slot
+      template(#fallback-text)
+        slot(
+          name="fallback-text"
+        )
 
 </template>
 

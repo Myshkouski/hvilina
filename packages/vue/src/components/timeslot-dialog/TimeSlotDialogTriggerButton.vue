@@ -12,19 +12,22 @@ Button(
     )
   `
 )
-  slot
-    .flex.items-center.gap-2
-      .size-4
-        LoaderCircleIcon(
-          v-if="loading"
-          :class="{ 'animate-spin': loading }"
-        )
-        ClockIcon(
-          v-else
-        )
-      TimeSlotText(
-        :time-slot="timeSlot"
+  .flex.items-center.gap-2
+    .size-4
+      LoaderCircleIcon(
+        v-if="loading"
+        :class="{ 'animate-spin': loading }"
       )
+      ClockIcon(
+        v-else
+      )
+    TimeSlotText(
+      :time-slot="timeSlot"
+    )
+      template(#fallback-text)
+        slot(
+          name="fallback-text"
+        )
 
 </template>
 

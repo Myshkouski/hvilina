@@ -24,8 +24,8 @@ TimeSlotPickerRoot(
         slot(name="content-description-text")
       template(#content-confirm-text)
         slot(name="content-confirm-text")
-      template(#content-timeslot-fallback-text="slotProps")
-        slot(name="content-timeslot-fallback-text" v-bind="slotProps")      
+      template(#timeslot-fallback-text)
+        slot(name="timeslot-fallback-text")      
 
 </template>
 
