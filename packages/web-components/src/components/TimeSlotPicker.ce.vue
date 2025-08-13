@@ -17,6 +17,9 @@
       <template #content-description-text>
         {{ t("description") }}
       </template>
+      <template #content-timeslot-fallback-text>
+        {{ t("timeslot-fallback") }}
+      </template>
     </TimeSlotPicker>
   </LocaleProvider>
 </template>
@@ -26,11 +29,13 @@
 en:
   title: select date and time
   description: сlick "Confirm" when you're done.
+  timeslot-fallback: not selected
   button:
     confirm: confirm
 ru:
   title: выберите дату и время
   description: Нажмите "Подтвердить" после выбора даты и времени.
+  timeslot-fallback: не выбрано
   button:
     confirm: подтвердить
 
