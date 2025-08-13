@@ -9,7 +9,7 @@
     },
     "packages/embed": {
       "name": "@hvilina/embed",
-      "version": "0.0.28",
+      "version": "0.0.32",
       "devDependencies": {
         "@hvilina/web-components": "workspace:^",
         "typescript": "~5.8.3",
@@ -19,7 +19,7 @@
     },
     "packages/lib": {
       "name": "@hvilina/lib",
-      "version": "0.0.28",
+      "version": "0.0.32",
       "dependencies": {
         "@myshkouski/web-crypto": "^0.0.4",
         "hex-encoding": "^2.0.3",
@@ -32,7 +32,7 @@
     },
     "packages/vue": {
       "name": "@hvilina/vue",
-      "version": "0.0.28",
+      "version": "0.0.32",
       "dependencies": {
         "@hvilina/lib": "workspace:^",
         "@internationalized/date": "^3.8.2",
@@ -85,7 +85,7 @@
     },
     "packages/web-components": {
       "name": "@hvilina/web-components",
-      "version": "0.0.28",
+      "version": "0.0.32",
       "dependencies": {
         "vue": "^3.5.17",
         "vue-i18n": "^11.1.11",
