@@ -17,6 +17,7 @@ Button(
       .size-4
         LoaderCircleIcon(
           v-if="loading"
+          :class="{ 'animate-spin': loading }"
         )
         ClockIcon(
           v-else
