@@ -18,7 +18,7 @@ Button(
         LoaderCircleIcon(
           v-if="loading"
         )
-        CalendarIcon(
+        ClockIcon(
           v-else
         )
       TimeSlotText(
@@ -30,7 +30,7 @@ Button(
 <script setup lang="ts">
 
 import { Button } from "~/components/ui/button"
-import { CalendarIcon, LoaderCircleIcon } from "lucide-vue-next"
+import { ClockIcon, LoaderCircleIcon } from "lucide-vue-next"
 import TimeSlotText from "./TimeSlotText.vue"
 import { cn } from "~/utils/shadcn"
 import type { TimePickerItem } from "./TimePicker.vue";
