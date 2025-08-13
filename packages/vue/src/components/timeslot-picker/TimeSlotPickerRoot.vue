@@ -172,10 +172,17 @@ async function confirm(timeSlot: TimePickerItem) {
 
 
 
+function emitReservationIdUpdate(value: string | undefined) {
+  console.debug('reservationId:', value)
+  emit("update:reservationId", value)
+}
+
 watch(reservationMeta.id, reservationId => {
-  emit("update:reservationId", reservationId)
-}, {
-  immediate: true
+  emitReservationIdUpdate(reservationId)
+})
+
+onMounted(() => {
+  emitReservationIdUpdate(reservationMeta.id.value)
 })
 
 async function upsertReservation(timeSlotValue: TimePickerItem) {
