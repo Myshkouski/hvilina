@@ -173,7 +173,6 @@ async function confirm(timeSlot: TimePickerItem) {
 
 
 function emitReservationIdUpdate(value: string | undefined) {
-  console.debug('reservationId:', value)
   emit("update:reservationId", value)
 }
 
