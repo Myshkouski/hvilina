@@ -9,21 +9,32 @@
   <body>
     <script type="module">
       import { TimeSlotPicker, TimeSlotPickerRoot, TimeSlotPickerFormField } from "./src"
-      // window.customElements.define("timeslot-picker", TimeSlotPicker)
+      window.customElements.define("timeslot-picker", TimeSlotPicker)
       // window.customElements.define("timeslot-picker-root", TimeSlotPickerRoot)
       window.customElements.define("timeslot-picker-field", TimeSlotPickerFormField)
     </script>
     <form action="/test">
       <div>
-        <!-- <timeslot-picker
-          base-url="http://localhost:3000"
+        <timeslot-picker
+          id="timeslot-picker"
+          field-name="timeslot-reservation-id"
+          base-url="https://taim-ui-nuxt.alexeimyshkouski.workers.dev"
           scope="default" 
           contract="2"
-        >
-          <input slot="reservation-id-input" name="timeslot-reservation-id" type="hidden" value="293" slot="reservation-id-input">Hello</input>
-        </timeslot-picker>
+        ></timeslot-picker>
+        <script>
+          console.debug("[index.html]", "begin")
 
-        <timeslot-picker-root
+          // const timeSlotPickerField = document.getElementById("timeslot-picker-field")
+          const timeSlotPicker = document.getElementById("timeslot-picker")
+          console.debug("[index.html]", timeSlotPicker)
+          timeSlotPicker.addEventListener("reservationIdUpdate", event => {
+            console.debug("[index.html]", event.type, event)
+          })
+          console.debug("[index.html]", "end")
+        </script>
+
+        <!-- <timeslot-picker-root
           base-url="http://localhost:3000"
           scope="default" 
           contract="2"
@@ -32,13 +43,14 @@
           <p>go here</p>
         </timeslot-picker-root> -->
 
-        <timeslot-picker-field
+        <!-- <timeslot-picker-field
+          id="timeslot-picker-field"
           field-name="timeslot-reservation-id"
           base-url="https://taim-ui-nuxt.alexeimyshkouski.workers.dev"
           scope="default" 
           contract="2"
         >
-        </timeslot-picker-field>
+        </timeslot-picker-field> -->
       </div>
 
       <button type="submit">

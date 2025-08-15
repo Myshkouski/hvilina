@@ -2,7 +2,7 @@
   <timeslot-picker
     v-bind="delegatedProps"
     @error="onError"
-    @reservation-id-update="onReservationIdUpdate"
+    @['reservation-id-update']="onReservationIdUpdate"
   >
   </timeslot-picker>
   <input type="hidden" :name="fieldName" :value="reservationId" :disabled="!reservationId" readonly>

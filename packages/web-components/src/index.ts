@@ -11,7 +11,8 @@ const sharedOptions = {
 } satisfies CustomElementOptions
 
 const customTimeSlotPicker = defineCustomElement(TimeSlotPicker, {
-  ...sharedOptions
+  ...sharedOptions,
+  shadowRoot: false
 })
 const customTimeSlotPickerRoot = defineCustomElement(TimeSlotPickerRoot, {
   ...sharedOptions

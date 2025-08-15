@@ -5,7 +5,7 @@
     <TimeSlotPicker
       v-bind="delegatedProps" 
       @error="emit('error', $event)"
-      @update:reservation-id="emit('reservationIdUpdate', $event)" 
+      @update:reservation-id="console.debug('[TimeSlotPicker.ce.vue]', 'inline handler', $event);emit('reservationIdUpdate', $event)" 
       @update:time-slots="emit('timeSlotsUpdate', $event)"
     >
       <template #content-title-text>
@@ -46,7 +46,7 @@ ru:
 import LocaleProvider from "./LocaleProvider.vue"
 import { TimeSlotPicker, type TimeSlotPickerProps } from "@hvilina/vue";
 import { delegateTimeSlotPickerProps } from "./delegateTimeSlotPickerProps";
-import { computed } from "vue";
+import { computed, nextTick, onMounted, watchEffect } from "vue";
 import { useI18n } from "vue-i18n"
 
 const { t } = useI18n()
@@ -78,6 +78,23 @@ export type Emits = {
   (event: "timeSlotsUpdate", value: object[] | undefined): void
 }
 const emit = defineEmits<Emits>()
+
+watchEffect(effect => {
+  console.debug("[TimeSlotPicker.ce.vue]", "watchEffect", effect)
+}, {
+  // flush: "post"
+})
+
+onMounted(() => {
+  console.debug("[TimeSlotPicker.ce.vue]", "onMounted")
+  nextTick(() => {
+    console.debug("[TimeSlotPicker.ce.vue]", "onMounted -> nextTick")
+  })
+})
+
+nextTick(() => {
+  console.debug("[TimeSlotPicker.ce.vue]", "nextTick")
+})
 
 </script>
 
