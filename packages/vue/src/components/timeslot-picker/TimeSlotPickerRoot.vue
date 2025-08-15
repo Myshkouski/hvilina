@@ -173,16 +173,11 @@ async function confirm(timeSlot: TimePickerItem) {
 
 
 function emitReservationIdUpdate(value: string | undefined) {
-  console.debug("[TimeSlotPickerRoot.vue]", "emitReservationIdUpdate")
   emit("update:reservationId", value)
 }
 
 watch(reservationMeta.id, reservationId => {
   emitReservationIdUpdate(reservationId)
-})
-
-onMounted(() => {
-  console.debug("[TimeSlotPickerRoot.vue]", "onMounted")
 })
 
 onMounted(() => {
