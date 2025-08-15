@@ -1,5 +1,5 @@
 {
-  "version": "0.0.37-debug",
+  "version": "0.0.38-debug.0",
   "packages": [
     "packages/*"
   ]
