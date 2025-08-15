@@ -1,6 +1,6 @@
 {
   "name": "@hvilina/embed",
-  "version": "0.0.38-debug.0",
+  "version": "0.0.38",
   "type": "module",
   "main": "./dist/index.js",
   "scripts": {
