@@ -1,6 +1,8 @@
 <template lang="pug">
 
-span.text-muted-foreground
+span.text-muted-foreground(
+  class="first-letter:uppercase"
+)
   template(
     v-if="formattedTimeSlot"
   )
@@ -12,7 +14,7 @@ span.text-muted-foreground
     slot(
       name="fallback-text"
     )
-      | Pick a timeslot
+      | pick a timeslot
 
 </template>
 

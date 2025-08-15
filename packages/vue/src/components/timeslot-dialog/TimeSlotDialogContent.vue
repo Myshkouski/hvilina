@@ -3,15 +3,15 @@
 CustomDialogScrollContent
   DialogHeader
     DialogTitle(
-      class="first-letter:capitalize"
+      class="first-letter:uppercase"
     )
       slot(name="title-text")
-        | Select date and time
+        | select date and time
     DialogDescription(
-      class="first-letter:capitalize"
+      class="first-letter:uppercase"
     )
       slot(name="description-text")
-        | Click "Save" when you&apos;re done.
+        | click "Save" when you&apos;re done.
   
   .my-4
     TimeSlotDateTimePicker(
@@ -42,13 +42,16 @@ CustomDialogScrollContent
               v-bind="slotProps"
             )
         Button(
-          class="cursor-pointer first-letter:capitalize"
+          class="cursor-pointer"
           type="button"
           :disabled="disableConfirm"
           @click="onConfirmClick"
         )
-          slot(name="confirm-text")
-            | Confirm
+          span(
+            class="first-letter:uppercase"
+          )
+            slot(name="confirm-text")
+              | confirm
   
 </template>
 
