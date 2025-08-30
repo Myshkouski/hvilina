@@ -25,3 +25,5 @@ export {
   customTimeSlotPickerRoot as TimeSlotPickerRoot,
   customTimeSlotPickerFormField as TimeSlotPickerFormField
 }
+
+export type * from "./components"
