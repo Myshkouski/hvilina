@@ -55,7 +55,7 @@ import {
   FormField,
   FormItem
 } from "~/components/ui/form"
-import { z } from "zod"
+import { z } from "zod/v3"
 import { toTypedSchema } from "@vee-validate/zod"
 
 // const baseUrl = "http://localhost:3000"
