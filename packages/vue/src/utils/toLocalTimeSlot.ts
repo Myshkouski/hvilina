@@ -1,5 +1,5 @@
 import { parseAbsoluteToLocal, parseDuration } from "@internationalized/date";
-import type { LocalTimeSlot } from "~/components/timeslot-dialog/TimePicker.vue";
+import type { LocalTimeSlot } from "~/types/LocalTimeSlot";
 import type { TimeSlotApi } from "~/types/TimeSlotApi";
 
 export function toLocalTimeSlot(timeSlot: TimeSlotApi): LocalTimeSlot {
@@ -8,5 +8,5 @@ export function toLocalTimeSlot(timeSlot: TimeSlotApi): LocalTimeSlot {
     duration: parseDuration(timeSlot.duration),
     available: timeSlot.available,
     performer: timeSlot.performer,
-  } satisfies LocalTimeSlot;
+  };
 }
