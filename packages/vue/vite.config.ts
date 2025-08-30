@@ -16,7 +16,7 @@ export default defineConfig({
     // rollupOptions: {
     //   input: "./index.ts",
     // },
-    minify: "terser"
+    // minify: "terser"
   },
   plugins: [
     vue(),

@@ -58,7 +58,6 @@
     "prettier": "^3.6.2",
     "pug": "^3.0.3",
     "shadcn-vue": "^2.2.0",
-    "terser": "^5.43.1",
     "tsdown": "^0.14.2",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
