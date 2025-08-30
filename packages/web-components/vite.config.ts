@@ -5,7 +5,7 @@ import dts from "unplugin-dts/vite"
 import i18n from '@intlify/unplugin-vue-i18n/vite'
 import postcssPlugin from "./postcssPlugin"
 // import tsconfigPaths from "vite-tsconfig-paths"
-import path from "node:path"
+import { fileURLToPath } from "node:url"
 
 export default defineConfig(({ mode }) => {
   return {
@@ -56,7 +56,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        "~": path.resolve(__dirname, "./src"),
+        "~": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
     define: {
