@@ -9,6 +9,7 @@ export default defineConfig({
       isProduction: true
     })
   ],
+  sourcemap: true,
   dts: {
     vue: true,
   },
