@@ -3,7 +3,7 @@ import vue from "@vitejs/plugin-vue"
 import tailwindcss from "@tailwindcss/vite"
 import dts from "unplugin-dts/vite"
 import i18n from '@intlify/unplugin-vue-i18n/vite'
-import nodeExternals from "rollup-plugin-node-externals"
+// import nodeExternals from "rollup-plugin-node-externals"
 import postcssPlugin from "./postcssPlugin"
 // import tsconfigPaths from "vite-tsconfig-paths"
 import { fileURLToPath } from "node:url"
@@ -11,7 +11,7 @@ import { fileURLToPath } from "node:url"
 export default defineConfig(({ mode }) => {
   return {
     plugins: [
-      nodeExternals(),
+      // nodeExternals(),
       vue({
         isProduction: true
       }),
