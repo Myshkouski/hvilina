@@ -9,7 +9,7 @@
     },
     "packages/embed": {
       "name": "@hvilina/embed",
-      "version": "0.0.39",
+      "version": "0.0.40",
       "devDependencies": {
         "@hvilina/web-components": "workspace:^",
         "typescript": "^5.9.2",
@@ -19,7 +19,7 @@
     },
     "packages/lib": {
       "name": "@hvilina/lib",
-      "version": "0.0.39",
+      "version": "0.0.40",
       "dependencies": {
         "@myshkouski/web-crypto": "^0.0.4",
         "hex-encoding": "^2.0.3",
@@ -32,7 +32,7 @@
     },
     "packages/vue": {
       "name": "@hvilina/vue",
-      "version": "0.0.39",
+      "version": "0.0.40",
       "dependencies": {
         "@hvilina/lib": "workspace:^",
         "@internationalized/date": "^3.9.0",
@@ -84,24 +84,23 @@
     },
     "packages/web-components": {
       "name": "@hvilina/web-components",
-      "version": "0.0.39",
-      "dependencies": {
-        "@hvilina/vue": "workspace:^",
-        "vue": "^3.5.17",
-        "vue-i18n": "^11.1.11",
-      },
+      "version": "0.0.40",
       "devDependencies": {
         "@intlify/unplugin-vue-i18n": "^6.0.8",
         "@tailwindcss/vite": "^4.1.11",
         "@vitejs/plugin-vue": "^6.0.0",
         "@vue/tsconfig": "^0.8.1",
         "ajv": "^8.17.1",
-        "rollup-plugin-node-externals": "^8.1.0",
-        "tailwindcss": "^4.1.11",
         "typescript": "^5.9.2",
         "unplugin-dts": "^1.0.0-beta.6",
         "vite": "^7.1.3",
-        "vue-tsc": "^3.0.4",
+      },
+      "peerDependencies": {
+        "@hvilina/vue": "workspace:^",
+        "tailwindcss": "^4.0.0",
+        "tw-animate-css": "^1.0.0",
+        "vue": "^3.5.0",
+        "vue-i18n": "^11.0.0",
       },
     },
   },
@@ -2607,8 +2606,6 @@
     "rolldown-plugin-dts": ["rolldown-plugin-dts@0.15.10", "", { "dependencies": { "@babel/generator": "^7.28.3", "@babel/parser": "^7.28.3", "@babel/types": "^7.28.2", "ast-kit": "^2.1.2", "birpc": "^2.5.0", "debug": "^4.4.1", "dts-resolver": "^2.1.2", "get-tsconfig": "^4.10.1" }, "peerDependencies": { "@typescript/native-preview": ">=7.0.0-dev.20250601.1", "rolldown": "^1.0.0-beta.9", "typescript": "^5.0.0", "vue-tsc": "~3.0.3" }, "optionalPeers": ["@typescript/native-preview", "typescript", "vue-tsc"] }, "sha512-8cPVAVQUo9tYAoEpc3jFV9RxSil13hrRRg8cHC9gLXxRMNtWPc1LNMSDXzjyD+5Vny49sDZH77JlXp/vlc4I3g=="],
 
     "rollup": ["rollup@4.49.0", "", { "dependencies": { "@types/estree": "1.0.8" }, "optionalDependencies": { "@rollup/rollup-android-arm-eabi": "4.49.0", "@rollup/rollup-android-arm64": "4.49.0", "@rollup/rollup-darwin-arm64": "4.49.0", "@rollup/rollup-darwin-x64": "4.49.0", "@rollup/rollup-freebsd-arm64": "4.49.0", "@rollup/rollup-freebsd-x64": "4.49.0", "@rollup/rollup-linux-arm-gnueabihf": "4.49.0", "@rollup/rollup-linux-arm-musleabihf": "4.49.0", "@rollup/rollup-linux-arm64-gnu": "4.49.0", "@rollup/rollup-linux-arm64-musl": "4.49.0", "@rollup/rollup-linux-loongarch64-gnu": "4.49.0", "@rollup/rollup-linux-ppc64-gnu": "4.49.0", "@rollup/rollup-linux-riscv64-gnu": "4.49.0", "@rollup/rollup-linux-riscv64-musl": "4.49.0", "@rollup/rollup-linux-s390x-gnu": "4.49.0", "@rollup/rollup-linux-x64-gnu": "4.49.0", "@rollup/rollup-linux-x64-musl": "4.49.0", "@rollup/rollup-win32-arm64-msvc": "4.49.0", "@rollup/rollup-win32-ia32-msvc": "4.49.0", "@rollup/rollup-win32-x64-msvc": "4.49.0", "fsevents": "~2.3.2" }, "bin": { "rollup": "dist/bin/rollup" } }, "sha512-3IVq0cGJ6H7fKXXEdVt+RcYvRCt8beYY9K1760wGQwSAHZcS9eot1zDG5axUbcp/kWRi5zKIIDX8MoKv/TzvZA=="],
-
-    "rollup-plugin-node-externals": ["rollup-plugin-node-externals@8.1.0", "", { "peerDependencies": { "rollup": "^4.0.0" } }, "sha512-0D3S0E0Dl1V3Q6Cywnc7wt88VAfOB9AC5QHwVdgvP1vByRHW2wnEXoK0x3VYZzJ/EmGsR5Uix5HUmMJNG+hz2Q=="],
 
     "rollup-plugin-visualizer": ["rollup-plugin-visualizer@6.0.3", "", { "dependencies": { "open": "^8.0.0", "picomatch": "^4.0.2", "source-map": "^0.7.4", "yargs": "^17.5.1" }, "peerDependencies": { "rolldown": "1.x || ^1.0.0-beta", "rollup": "2.x || 3.x || 4.x" }, "optionalPeers": ["rolldown", "rollup"], "bin": { "rollup-plugin-visualizer": "dist/bin/cli.js" } }, "sha512-ZU41GwrkDcCpVoffviuM9Clwjy5fcUxlz0oMoTXTYsK+tcIFzbdacnrr2n8TXcHxbGKKXtOdjxM2HUS4HjkwIw=="],
 
