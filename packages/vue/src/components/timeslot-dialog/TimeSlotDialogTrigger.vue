@@ -16,14 +16,14 @@
 
 <script setup lang="ts">
 
-import type { TimePickerItem } from "./TimePicker.vue";
+import type { TimeSlot } from "./TimeSlotDialogTimePicker.vue";
 import TimeSlotDialogTriggerButton from "./TimeSlotDialogTriggerButton.vue"
 import {
   DialogTrigger
 } from "~/components/ui/dialog"
 
 defineProps<{
-  timeSlot?: TimePickerItem
+  timeSlot?: TimeSlot
   disabled?: boolean
   loading?: boolean
 }>()

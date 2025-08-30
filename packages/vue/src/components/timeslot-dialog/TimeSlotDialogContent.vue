@@ -12,14 +12,14 @@ CustomDialogScrollContent
     )
       slot(name="description-text")
         | click "Save" when you&apos;re done.
-  
+
   .my-4
     TimeSlotDateTimePicker(
       :available="available"
       v-model:date="selectedStartDate"
       v-model:time-slot="selectedTimeSlot"
     )
-  
+
   DialogFooter
     .w-full.flex.flex-row
       .flex-1
@@ -71,7 +71,7 @@ import {
   Button
 } from "~/components/ui/button"
 import { RefreshCwIcon } from "lucide-vue-next"
-import type { TimePickerItem } from './TimePicker.vue'
+import type { TimeSlot } from './TimeSlotDialogTimePicker.vue'
 import { shallowRef } from "vue"
 
 type Props = {
@@ -88,8 +88,8 @@ type Props = {
 const {
   loading,
   available,
-  disableConfirm, 
-  disableRefresh, 
+  disableConfirm,
+  disableRefresh,
 } = defineProps<Props>()
 
 type Emits = {
@@ -100,7 +100,7 @@ type Emits = {
 const emit = defineEmits<Emits>()
 
 const selectedStartDate = shallowRef<Date>()
-const selectedTimeSlot = defineModel<TimePickerItem>("selected")
+const selectedTimeSlot = defineModel<TimeSlot>("selected")
 // watch(selectedStartDate, () => {
 //   selectedTimeSlot.value = undefined
 // })

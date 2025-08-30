@@ -1,7 +1,7 @@
-import type { TimePickerItem } from "~/components/timeslot-dialog/TimePicker.vue";
+import type { TimeSlot } from "~/components/timeslot-dialog/TimeSlotDialogTimePicker.vue";
 import type { LocalTimeSlot } from "~/types/LocalTimeSlot";
 
-export function toTimePickerItem(value: LocalTimeSlot): TimePickerItem {
+export function toTimePickerItem(value: LocalTimeSlot): TimeSlot {
   return {
     startAt: value.startAt,
     duration: value.duration,

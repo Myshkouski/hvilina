@@ -1,4 +1,4 @@
-import { defineConfig } from "vite"
+import { defineConfig, type UserConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import tailwindcss from "@tailwindcss/vite"
 import dts from "unplugin-dts/vite"
@@ -12,12 +12,15 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       nodeExternals(),
-      vue(), ,
+      vue({
+        isProduction: true
+      }),
       i18n({
-
+        ssr: false
       }),
       tailwindcss(),
       dts({
+        processor: "vue",
         tsconfigPath: "tsconfig.app.json",
         bundleTypes: true
       }),
@@ -36,6 +39,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       // outDir: "./dist",
+      sourcemap: true,
       lib: {
         entry: "./src/index.ts",
         formats: [
@@ -64,5 +68,5 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.NODE_ENV": JSON.stringify(mode),
     },
-  }
+  } satisfies UserConfig
 })

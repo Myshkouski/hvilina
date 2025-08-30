@@ -9,7 +9,7 @@ slot(
 <script setup lang="ts">
 
 import { useTimeSlots } from '~/composables';
-import type { TimePickerItem } from '~/components/timeslot-dialog/TimePicker.vue';
+import type { TimeSlot } from '~/components/timeslot-dialog/TimeSlotDialogTimePicker.vue';
 import { computed, onMounted, shallowRef, watch } from 'vue';
 import { formatDuration } from "~/utils/formatDuration";
 import {
@@ -92,7 +92,7 @@ export interface DefaultSlotProps {
   loading: boolean
   available?: LocalTimeSlot[]
   selected?: LocalTimeSlot
-  onConfirm: (timeSlot: TimePickerItem) => any
+  onConfirm: (timeSlot: TimeSlot) => any
   onRefresh: () => any
 }
 
@@ -138,7 +138,7 @@ const origin = computed(() => {
 })
 const reservationMeta = useReservationMeta({ scope, origin })
 
-const timeSlot = shallowRef<TimePickerItem>()
+const timeSlot = shallowRef<TimeSlot>()
 
 onMounted(async () => {
   const reservationId = reservationMeta.id.value
@@ -158,7 +158,7 @@ onMounted(async () => {
 
 import { promiseTimeout } from "@vueuse/core"
 
-async function confirm(timeSlot: TimePickerItem) {
+async function confirm(timeSlot: TimeSlot) {
   try {
     reservationLoading.value = true
     await Promise.all([
@@ -184,7 +184,7 @@ onMounted(() => {
   emitReservationIdUpdate(reservationMeta.id.value)
 })
 
-async function upsertReservation(timeSlotValue: TimePickerItem) {
+async function upsertReservation(timeSlotValue: TimeSlot) {
   const reservationId = reservationMeta.id.value
   let request: Request
   if (reservationId) {

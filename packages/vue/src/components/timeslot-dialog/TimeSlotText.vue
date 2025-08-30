@@ -7,7 +7,7 @@ span.text-muted-foreground(
     v-if="formattedTimeSlot"
   )
     | {{ formattedTimeSlot }}
-    
+
   template(
     v-else
   )
@@ -21,7 +21,7 @@ span.text-muted-foreground(
 <script setup lang="ts">
 
 import { usePreferredLanguages } from '@vueuse/core';
-import type { TimePickerItem } from './TimePicker.vue';
+import type { TimeSlot } from './TimeSlotDialogTimePicker.vue';
 import { computed, toValue } from 'vue';
 import { formatTimeSlot } from '~/utils/formatTimeSlot';
 import { DateFormatter } from '@internationalized/date';
@@ -29,7 +29,7 @@ import { DateFormatter } from '@internationalized/date';
 const {
   timeSlot
 } = defineProps<{
-  timeSlot?: TimePickerItem
+  timeSlot?: TimeSlot
 }>()
 
 const locales = usePreferredLanguages()

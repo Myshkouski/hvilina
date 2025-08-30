@@ -7,21 +7,18 @@ TimePicker(
 
 </template>
 
-<script setup lang="ts" generic="T extends Readonly<LocalTimeSlot>">
+<script setup lang="ts" generic="T extends Readonly<TimeSlot>">
 
-import type { LocalTimeSlot } from '~/types/LocalTimeSlot'
+import type { TimeWithAvailability } from '~/components/time-picker/TimePicker.vue'
 import { fromDate, getLocalTimeZone, isSameDay, type DateTimeDuration, type ZonedDateTime } from '@internationalized/date';
 import { TimePicker } from "~/components/time-picker"
 import { computed } from 'vue';
 import { toTimePickerItem } from '~/utils/toTimePickerItem';
 
-export interface TimePickerItem {
+export interface TimeSlot extends TimeWithAvailability {
   startAt: ZonedDateTime
   duration: DateTimeDuration
-  available: boolean
   performer: string
-  hour: number
-  minute: number
 }
 
 const props = defineProps<{
@@ -34,7 +31,7 @@ const selectedCalendarDate = computed(() => {
   return fromDate(props.selectedDate, getLocalTimeZone())
 })
 
-const selectedTimeSlot = defineModel<TimePickerItem | undefined>()
+const selectedTimeSlot = defineModel<TimeSlot | undefined>()
 
 const timePickerItems = computed(() => {
   return props.timeSlots.map(timeSlot => {
@@ -43,7 +40,7 @@ const timePickerItems = computed(() => {
       available: selectedCalendarDate.value
         ? isSameDay(selectedCalendarDate.value, timeSlot.startAt) && timeSlot.available
         : false,
-    } satisfies TimePickerItem
+    } satisfies TimeSlot
   })
 })
 

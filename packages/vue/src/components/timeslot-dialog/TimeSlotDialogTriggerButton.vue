@@ -4,13 +4,12 @@ Button(
   type="button"
   variant="secondary"
   :disabled="disabled"
-  :class=`
-    cn(
-      'cursor-pointer',
-      'justify-start text-left font-normal',
-      !timeSlot && 'text-muted-foreground',
-    )
-  `
+  :class=`cn(
+    'cursor-pointer',
+    'justify-start text-left font-normal',
+    !timeSlot && 'text-muted-foreground',
+  )
+    `
 )
   .flex.items-center.gap-2
     .size-4
@@ -37,14 +36,14 @@ import { Button } from "~/components/ui/button"
 import { ClockIcon, LoaderCircleIcon } from "lucide-vue-next"
 import TimeSlotText from "./TimeSlotText.vue"
 import { cn } from "~/utils/shadcn"
-import type { TimePickerItem } from "./TimePicker.vue";
+import type { TimeSlot } from "./TimeSlotDialogTimePicker.vue";
 
 const {
   timeSlot,
   disabled = false,
   loading = false
 } = defineProps<{
-  timeSlot?: TimePickerItem
+  timeSlot?: TimeSlot
   disabled?: boolean
   loading?: boolean
 }>()

@@ -10,7 +10,7 @@ Dialog(
   )
     template(#fallback-text)
       slot(name="timeslot-fallback-text")
-  
+
   TimeSlotDialogContent(
     :available="available"
     :loading="loading"
@@ -33,35 +33,37 @@ Dialog(
 
 <script setup lang="ts">
 
-import TimeSlotDialogTrigger from "./TimeSlotDialogTrigger.vue" 
+import TimeSlotDialogTrigger from "./TimeSlotDialogTrigger.vue"
 import TimeSlotDialogContent from "./TimeSlotDialogContent.vue"
-import type { TimePickerItem } from "./TimePicker.vue"
-import { shallowRef, watch } from "vue"
+import type { TimeSlot } from "./TimeSlotDialogTimePicker.vue"
 import type { LocalTimeSlot } from "~/types/LocalTimeSlot"
+import { shallowRef, watch } from "vue"
 import { Dialog } from "~/components/ui/dialog"
+
+export type Props = {
+  available?: LocalTimeSlot[]
+  selected?: TimeSlot
+  disabled?: boolean
+  loading?: boolean
+}
 
 const {
   available,
   selected,
   disabled,
   loading,
-} = defineProps<{
-  available?: LocalTimeSlot[]
-  selected?: TimePickerItem
-  disabled?: boolean
-  loading?: boolean
-}>()
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   (event: "click:refresh"): void
-  (event: "click:confirm", value: TimePickerItem): void
+  (event: "click:confirm", value: TimeSlot): void
 }>()
 
 const dialogOpen = defineModel("open", {
   default: false
 })
 
-const selectedTimeSlot = shallowRef<TimePickerItem | undefined>(selected)
+const selectedTimeSlot = shallowRef<TimeSlot | undefined>(selected)
 
 const selectedStartDate = shallowRef<Date>()
 watch(selectedStartDate, (date, oldDate) => {

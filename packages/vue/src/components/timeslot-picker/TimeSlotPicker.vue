@@ -37,7 +37,7 @@ import {
   TimeSlotDialog
 } from "~/components/timeslot-dialog"
 import { ref } from "vue"
-import type { TimePickerItem } from "~/components/timeslot-dialog/TimePicker.vue"
+import type { TimeSlot } from "~/components/timeslot-dialog/TimeSlotDialogTimePicker.vue"
 
 export type { Props, Emits }
 
@@ -46,7 +46,7 @@ const emit = defineEmits<Emits>()
 
 const dialogOpen = ref(false)
 
-function onConfirmClick(value: TimePickerItem | undefined, cb: (timeSlot: TimePickerItem) => Promise<void>) {
+function onConfirmClick(value: TimeSlot | undefined, cb: (timeSlot: TimeSlot) => Promise<void>) {
   if (!value) return
   cb(value).then(() => {
     dialogOpen.value = false

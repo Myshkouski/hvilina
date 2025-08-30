@@ -12,12 +12,12 @@
 
 </template>
 
-<script setup lang="ts" generic="T extends Readonly<TimeSlot>">
+<script setup lang="ts" generic="T extends Readonly<TimeWithAvailability>">
 
 import { computed, ref, watch } from "vue";
 import TimePickerScroll from "./TimePickerScroll.vue"
 
-export interface TimeSlot {
+export interface TimeWithAvailability {
   hour: number
   minute: number
   available: boolean
