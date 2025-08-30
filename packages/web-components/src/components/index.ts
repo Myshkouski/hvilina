@@ -1,7 +1,7 @@
 export {
   default as TimeSlotPicker,
   type Props as TimeSlotPickerProps,
-  type Emits as TTimeSlotPickerEmits,
+  type Emits as TimeSlotPickerEmits,
 } from "./TimeSlotPicker.ce.vue"
 
 export {
