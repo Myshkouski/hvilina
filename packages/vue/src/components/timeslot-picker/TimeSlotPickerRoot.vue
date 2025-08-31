@@ -118,19 +118,19 @@ onMounted(() => {
   refreshIfNotDisabled().catch(onError)
 })
 
-if (true == disabledProp) {
-  let watchHandle: WatchHandle
-  watchHandle = watch(() => disabledProp, (value, old) => {
-    if (old && !value) {
-      refreshIfNotDisabled().catch(console.error)
-      emitReservationIdUpdateIfNotDisabled()
+let watchHandle: WatchHandle
+watchHandle = watch(() => disabledProp, (value, old) => {
+  if (old && !value) {
+    refreshIfNotDisabled().catch(console.error)
+    emitReservationIdUpdateIfNotDisabled()
 
-      nextTick(() => {
-        watchHandle()
-      })
-    }
-  })
-}
+    nextTick(() => {
+      watchHandle()
+    })
+  }
+}, {
+  immediate: true
+})
 
 watch(timeSlots, timeSlots => {
   if (disabledProp) return
