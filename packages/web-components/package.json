@@ -1,6 +1,6 @@
 {
   "name": "@hvilina/web-components",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "type": "module",
   "exports": {
     ".": "./dist/index.js",
@@ -30,7 +30,7 @@
     }
   },
   "devDependencies": {
-  "@intlify/unplugin-vue-i18n": "^6.0.8",
+    "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@tailwindcss/vite": "^4.1.11",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.8.1",
