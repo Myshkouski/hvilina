@@ -10,7 +10,7 @@ slot(
 
 import { useTimeSlots } from '~/composables';
 import type { TimeSlot } from '~/components/timeslot-dialog/TimeSlotDialogTimePicker.vue';
-import { computed, onMounted, shallowRef, watch } from 'vue';
+import { computed, onMounted, shallowRef, watch, type WatchHandle } from 'vue';
 import { formatDuration } from "~/utils/formatDuration";
 import {
   createReservationRequest,
@@ -118,7 +118,22 @@ onMounted(() => {
   refreshIfNotDisabled().catch(onError)
 })
 
+if (true == disabledProp) {
+  let watchHandle: WatchHandle
+  watchHandle = watch(() => disabledProp, (value, old) => {
+    if (old && !value) {
+      refreshIfNotDisabled().catch(console.error)
+      emitReservationIdUpdateIfNotDisabled()
+
+      nextTick(() => {
+        watchHandle()
+      })
+    }
+  })
+}
+
 watch(timeSlots, timeSlots => {
+  if (disabledProp) return
   emit("update:timeSlots", timeSlots)
 }, {
   immediate: true
@@ -157,6 +172,7 @@ onMounted(async () => {
 })
 
 import { promiseTimeout } from "@vueuse/core"
+import { nextTick } from 'process';
 
 async function confirm(timeSlot: TimeSlot) {
   try {
@@ -172,16 +188,17 @@ async function confirm(timeSlot: TimeSlot) {
 
 
 
-function emitReservationIdUpdate(value: string | undefined) {
-  emit("update:reservationId", value)
+function emitReservationIdUpdateIfNotDisabled() {
+  if (disabledProp) return
+  emit("update:reservationId", reservationMeta.id.value)
 }
 
 watch(reservationMeta.id, reservationId => {
-  emitReservationIdUpdate(reservationId)
+  emitReservationIdUpdateIfNotDisabled()
 })
 
 onMounted(() => {
-  emitReservationIdUpdate(reservationMeta.id.value)
+  emitReservationIdUpdateIfNotDisabled()
 })
 
 async function upsertReservation(timeSlotValue: TimeSlot) {
