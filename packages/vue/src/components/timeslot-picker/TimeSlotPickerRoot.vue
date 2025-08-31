@@ -10,7 +10,7 @@ slot(
 
 import { useTimeSlots } from '~/composables';
 import type { TimeSlot } from '~/components/timeslot-dialog/TimeSlotDialogTimePicker.vue';
-import { computed, onMounted, shallowRef, watch, type WatchHandle } from 'vue';
+import { computed, nextTick, onMounted, shallowRef, watch, type WatchHandle } from 'vue';
 import { formatDuration } from "~/utils/formatDuration";
 import {
   createReservationRequest,
@@ -172,7 +172,6 @@ onMounted(async () => {
 })
 
 import { promiseTimeout } from "@vueuse/core"
-import { nextTick } from 'process';
 
 async function confirm(timeSlot: TimeSlot) {
   try {
